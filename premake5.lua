@@ -20,7 +20,7 @@ project "StudentTracker"
 	
 	files
 	{
-		"%{prj.name}/src/**.cs"
+		"src/**.cs"
 	}
 	
 	filter "configurations:Debug"
