@@ -1,22 +1,14 @@
 # Student Tracker Application
     - For SE 1
+    - Riley Owen: Scrum Master
+    - Joshua Belfield: Architecture
+    - Sam Collins: 
 ## Repository Breakdown
     - Web
     - Database
     - Framework
 
-# Project Specs
-    -
-    -
-    -
-
-# Project Diagram
-    -
-    -
-    -
-
-# How To Set Up
-    
+# How To Set Up ->
 ### Connect to repo
     - Open up Visual Studio 2022
     - Click Git tab 
