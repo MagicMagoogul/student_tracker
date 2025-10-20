@@ -5,16 +5,20 @@
     - Sam Collins: Developer 
     - Aurora Liles: Developer
     - Melanie Magno: Developer
-    
-## Directory Breakdowns
-    - Front_End/Webpages/
-        L student_login.html        # Used For...
-        L student_logout.html        # Used For...
-        
+
     - Student Tracker Blazor/
         L Components/        # Used For...
+            L
+            L
+            L
         L Properties/        # Used For...
+            L
+            L
+            L
         L wwwroot/     # Used For...
+            L
+            L
+            L
     - src
         L 
 
