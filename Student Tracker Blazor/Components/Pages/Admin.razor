@@ -1,0 +1,17 @@
+﻿@page "/admin"
+@rendermode InteractiveServer
+
+<PageTitle>Admin</PageTitle>
+
+<h1>Admin Page lol</h1>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Admin Button: @currentCount</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
