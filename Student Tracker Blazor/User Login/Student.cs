@@ -4,38 +4,35 @@ namespace Student_Tracker_Blazor
 {
     public class Student : User
     {
+        private string studentId;
+        private string professorId;
+
+        private string enumber;
+
         public Student()
         {
-            username = null;
-            enumber = null;
-            emailaddr = null;
-            password = null;
-            permissions = new bool[10];
+            studentId = "";
+            professorId = "";
+
+            enumber = "";
         }
-        public string Username
+
+        public string StudentID
         {
-            get { return username; }
-            set { username = value; }
-        } //Username getter and setter
-        public string Enum
+            get { return studentId; }
+            set { studentId = value; }
+        }
+
+        public string ProfessorID
         {
-            get { return username; }
-            set { username = value; }
-        } //Enum getter and setter
-        public string Emailaddr 
+            get { return professorId; }
+            set { professorId = value; }
+        }
+
+        public string ENumber
         {
-            get { return emailaddr; }
-            set { emailaddr = value; }
-        } //Email address getter and setter
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        } //Password getter and setter
-        public bool[] Permissions
-        {
-            get { return permissions; }
-            set { permissions = value; }
-        } //Permissions getter and setter
+            get { return enumber; }
+            set { enumber = value; }
+        }
     }
 }
