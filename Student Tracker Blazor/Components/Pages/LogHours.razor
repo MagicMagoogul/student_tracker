@@ -1,0 +1,52 @@
+﻿@page "/loghours"
+
+<PageTitle>Log Hours</PageTitle>
+
+<h1>Log Your Hours</h1>
+
+<EditForm Model="Student" OnValidSubmit="Submit" FormName="LogHours">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <label>
+            Student Id: 
+            <InputText @bind-Value="Student!.Id" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Hours Worked:
+            <InputText @bind-Value="hours" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Location of work:
+            <InputText @bind-Value="location" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Date Worked:
+            <InputText @bind-Value="shiftDate" />
+        </label>
+    </div>
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    private Student? Student { get; set; }
+    private int hours;
+    private string location;
+    private DateOnly shiftDate;
+    private DateTime loggingDate = DateTime.Now;  
+
+    //this is wrong it needs to pull the student info from the auth stuff but idk how to do that
+    protected override void OnInitialized() =>
+        Student ??= new();
+
+    private void Submit()
+    {
+        Logger.LogInformation("{Id}: {hours} at {location}, on {shiftDate}, logged at {loggingDate}", Student?.Id, hours, location, shiftDate, loggingDate);    
+    }
+}
