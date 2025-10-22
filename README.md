@@ -1,24 +1,17 @@
 # Student Tracker Application
-    - For SE 1
-    - Riley Owen: Scrum Master
-    - Joshua Belfield: Product Owner
-    - Sam Collins: Developer 
-    - Aurora Liles: Developer
-    - Melanie Magno: Developer
-
     - Student Tracker Blazor/
         L Components/        # Used For...
-            L
-            L
-            L
+            L 
+            L 
+            L 
         L Properties/        # Used For...
-            L
-            L
-            L
+            L 
+            L 
+            L 
         L wwwroot/     # Used For...
-            L
-            L
-            L
+            L 
+            L 
+            L 
     - src
         L 
 
