@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using Student_Tracker_Blazor.Components;
 
 namespace Student_Tracker_Blazor
@@ -45,7 +47,11 @@ namespace Student_Tracker_Blazor
         public string Password
         {
             get { return password; }
-            set { password = value; }
+            set
+            {
+                    password = value;
+                    HashPassword();
+            }
         }
 
         public string FirstName
@@ -70,6 +76,34 @@ namespace Student_Tracker_Blazor
         {
             get { return updatedAt; }
             set { updatedAt = value; }
+        }
+
+        public void HashPassword()
+        {
+            password = GetHashString(password);
+        }
+
+        public void UpdatePassword(string newPassword)
+        {
+            //Some manner of login to make sure that the updated password is being updated by a valid user
+            //Possible Admin login as well?
+            password = newPassword;
+            HashPassword();
+        }
+
+        private static byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        private static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
     }
 }
