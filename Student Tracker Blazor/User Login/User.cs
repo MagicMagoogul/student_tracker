@@ -4,7 +4,7 @@ using Student_Tracker_Blazor.Components;
 
 namespace Student_Tracker_Blazor
 {
-    public abstract class User
+    public class User
     {
         private string userId;
 
