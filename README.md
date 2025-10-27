@@ -1,22 +1,27 @@
 # Student Tracker Application
-    - For SE 1
-## Repository Breakdown
-    - Web
-    - Database
-    - Framework
+    - Student Tracker Blazor/
+        L Components/        # Used For...
+            L 
+            L 
+            L 
+        L Properties/        # Used For...
+            L 
+            L 
+            L 
+        L wwwroot/     # Used For...
+            L 
+            L 
+            L 
+    - src
+        L 
 
-# Project Specs
+## Branch Breakdown
     -
     -
     -
 
-# Project Diagram
-    -
-    -
-    -
-
-# How To Set Up
-    
+# How To Set Up ->
+This is a description of how to install and build the dependencies for this application.
 ### Connect to repo
     - Open up Visual Studio 2022
     - Click Git tab 
