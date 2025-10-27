@@ -2,11 +2,11 @@
 
 namespace Student_Tracker_Blazor
 {
-    public class Teacher : User
+    public class Professor : User
     {
         private string professorId;
 
-        public Teacher()
+        public Professor()
         {
             professorId = "";
         }

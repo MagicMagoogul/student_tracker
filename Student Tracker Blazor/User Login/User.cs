@@ -14,8 +14,10 @@ namespace Student_Tracker_Blazor
         private string firstName;
         private string lastName;
 
-        private string createdAt;
-        private string updatedAt;
+        private DateTime createdAt;
+        private DateTime updatedAt;
+
+        private Role role; 
 
         public User()
         {
@@ -27,9 +29,10 @@ namespace Student_Tracker_Blazor
             firstName = "";
             lastName = "";
 
-            createdAt = "";
-            updatedAt = "";
+            createdAt = DateTime.Now;
+            updatedAt = DateTime.Now;
 
+            role = Role.None;
         }
 
         public string UserID
@@ -66,16 +69,22 @@ namespace Student_Tracker_Blazor
             set { lastName = value; }
         }
 
-        public string CreatedAt
+        public DateTime CreatedAt
         {
             get { return createdAt; }
             set { createdAt = value; }
         }
 
-        public string UpdatedAt
+        public DateTime UpdatedAt
         {
             get { return updatedAt; }
             set { updatedAt = value; }
+        }
+
+        public Role Role
+        {
+            get { return role; }
+            set { role = value; }
         }
 
         public void HashPassword()
