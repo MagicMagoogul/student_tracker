@@ -9,6 +9,7 @@ namespace Student_Tracker_Blazor
     {
         public static void Main(string[] args)
         {
+            Login login = new Login();
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("StudentTrackerDB");
 
