@@ -5,17 +5,58 @@
 
 <h1>Admin Page lol</h1>
 
-username
+<!--TEMP-->
+
+Admin Username
 <div>
-    <InputText @bind-Value="username" />
+    <InputText @bind-Value="adminInputUsername"/>
 </div>
 
-password
+Admin Password
 <div>
-    <InputText @bind-Value="password"/>
+    <InputText @bind-Value="adminInputPassword"/>
 </div>
 
-<button class="btn btn-primary" @onclick="CreateUser">Create User</button>
+<div>
+    <button class="btn btn-primary" @onclick="AdminLogIn">Admin Log In</button>
+</div>
+
+@code
+{
+    private string adminUsername = "admin";
+    private string adminPassword = "loel";
+
+    private string adminInputUsername = "";
+    private string adminInputPassword = "";
+
+    private bool adminLoggedIn = false;
+
+    private void AdminLogIn()
+    {
+        if (adminInputUsername == adminUsername && adminInputPassword == adminPassword)
+        {
+            adminLoggedIn = true;
+        }
+    }
+}
+
+<!--TEMP-->
+@if(adminLoggedIn)
+{
+    <span>
+        username
+        <div>
+            <InputText @bind-Value="username" />
+        </div>
+
+        password
+        <div>
+            <InputText @bind-Value="password" />
+        </div>
+
+        <button class="btn btn-primary" @onclick="CreateUser">Create User</button>
+    </span>
+}
 
 @code {
     private string username = "";
