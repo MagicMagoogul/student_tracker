@@ -5,13 +5,23 @@
 
 <h1>Admin Page lol</h1>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Admin Button: @currentCount</button>
+username
+<div>
+    <InputText @bind-Value="username" />
+</div>
+
+password
+<div>
+    <InputText @bind-Value="password"/>
+</div>
+
+<button class="btn btn-primary" @onclick="CreateUser">Create User</button>
 
 @code {
-    private int currentCount = 0;
+    private string username = "";
+    private string password = "";
 
-    private void IncrementCount()
+    private void CreateUser()
     {
-        currentCount++;
     }
 }
