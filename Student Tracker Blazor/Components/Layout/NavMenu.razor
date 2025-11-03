@@ -1,54 +1,37 @@
 ﻿<div class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="horizontal-centered">
+    <nav class="horizontal-nav">
         <a class="navbar-brand" href="">Student Tracker Blazor</a>
-    </div>
-</div>
+
 
 <!--unnecessary? not sure what this is for-->
 <!--<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 -->
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+        <ul class="nav-item px-3">
+            <li><NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="loginpage">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="loginpage">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Log In/Out
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="loghours">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="loghours">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Log Hours
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="instructorview">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="instructorview">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Instructor View Hours
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="adminmanagedatabase">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="adminmanagedatabase">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Admin Manage Database
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="adminmanageusers">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="adminmanageusers">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Admin Manage Users
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="messaging">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="messaging">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Messaging
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="viewstudentrecords">
+            </NavLink></li>
+            <li><NavLink class="nav-link" href="viewstudentrecords">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Student Records
-            </NavLink>
-        </div>
+            </NavLink></li>
+        </ul>
     </nav>
 </div>
 
