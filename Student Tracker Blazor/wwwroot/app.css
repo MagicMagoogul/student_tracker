@@ -80,3 +80,16 @@ p{
     margin: 0 auto;
 }
 
+.horizontal-nav ul{
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.horizontal-nav a.active {
+    font-weight: bold;
+    border-bottom: 2px solid #0078d4;
+}
+
+}
