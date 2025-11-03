@@ -58,14 +58,14 @@ h1:focus {
 /*below are the classes to choose from*/
 body{
     font-family:'Comic Sans MS';
-    background-color: lightcyan;
+    background-color: #d5f4cf;
     margin: 0;
     padding: 20px;
     text-align: center;
 }
 
 h1 {
-    font-family: Chiller;
+    font-family: sans-serif;
     color: black;
     text-align: center;
     font-weight: bold;
@@ -76,4 +76,7 @@ p{
 
 }
 
+.horizontal-centered {
+    margin: 0 auto;
+}
 
