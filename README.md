@@ -33,3 +33,12 @@ This is a description of how to install and build the dependencies for this appl
     - Run "GenerateProjects.bat"
     - Open up StudentTracker.sln in Visual Studio 2022
     - Profit
+
+## How to get the newest version of the project (Developer note)
+    1) Click the branch
+    2) Click the main branch
+    3) Under "Git Changes" Fetch/Pull
+    4) If there are uncommited changes, commit that
+    5) Repeat till functional
+    4) Go back into your sub branch- EX. Main_Menu
+    5) 
