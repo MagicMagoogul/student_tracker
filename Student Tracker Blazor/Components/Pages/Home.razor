@@ -1,10 +1,24 @@
 ﻿@page "/"
+@inject NavigationManager Navigation
 
 <PageTitle>Home</PageTitle>
 
 <h1>Welcome to ETSU Nursing College's Tracking Application</h1>
 
-<p>If you are a student/instructor, please log in to your profile</p>
+<div>
+    <p>If you are a student/instructor, please log in to your profile</p>
+    <br />
+    @* <p>
+        <button class="btn btn-primary" @onclick="GoToLogIn">
+            Log In/Out Here
+        </button>
+    </p> *@
+</div>
 
 
-
+@code{
+    // private void GoToLogIn()
+    // {
+    //         Navigation.NavigateTo("/LogInPage");
+    // }
+}
