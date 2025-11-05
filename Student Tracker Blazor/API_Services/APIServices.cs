@@ -1,18 +1,23 @@
 namespace Student_Tracker_Blazor
 {
-    public class APIServices
+    public static class APIServices
     {
-        private readonly HttpClient _httpClient;
+        private static readonly HttpClient _httpClient;
 
-        public APIServices()
+        static APIServices()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:8000/");
         }
 
-        //public async Task<List<User>> GetUsersAsync()
-        //{
-        //
-        //}
+        public static async Task<List<User>> GetUsersAsync()
+        {
+            var response = await _httpClient.GetFromJsonAsync<List<User>>($"users/");
+            foreach (var user in response)
+            {
+                Console.WriteLine(user.FirstName);
+            }
+            return response;
+        }
     }
 }
