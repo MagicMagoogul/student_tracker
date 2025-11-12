@@ -33,7 +33,7 @@ namespace Student_Tracker_Blazor
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
-
+            Login login = new Login();
             login.LoginThing();
 
             app.Run();
