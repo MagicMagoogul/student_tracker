@@ -31,6 +31,8 @@ namespace Student_Tracker_Blazor
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
+            login.LoginThing();
+
             app.Run();
         }
     }
