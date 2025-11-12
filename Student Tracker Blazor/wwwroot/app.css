@@ -84,7 +84,6 @@ p{
     margin: 0 auto;
     padding: 0;
     display: flex;
-    gap: 10px;
 }
 
 .horizontal-nav a.active {
