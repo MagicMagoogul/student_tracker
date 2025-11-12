@@ -1,11 +1,43 @@
 @page "/loghours"
+@rendermode InteractiveServer
 
 <PageTitle>Log Hours</PageTitle>
 
 <h1>Log Hours</h1>
 
-<button>Log Hours</button>
+<div class="container mt-5">
+    <EditForm Model="@logHoursModel" OnValidSubmit="PushLogHours">
+        
+        <div class="row">
+            <div class="col-md-6">
+                <label>Hours</label>
+                <InputText @bind-Value="logHoursModel.hours" placeholder="Enter hours"/>
+            </div>
 
-<br />
+            <div class="col-md-6">
+                <label>Location</label>
+                <InputText @bind-Value="logHoursModel.location" placeholder="Enter location"/>
+            </div>
+        </div>
+        
+        <button class="mb-3" type="submit">Submit Hours</button>
+    </EditForm>
 
-<p>Put any info needed here</p>
+</div>
+
+@code 
+{
+    private LogHoursModel logHoursModel = new();
+
+    private void PushLogHours()
+    {
+        //placeholder for API push to database
+        Console.WriteLine($"Hours worked: {logHoursModel.hours} ; Location worked: {logHoursModel.location}");
+    }
+
+    public class LogHoursModel
+    {
+        public string hours { get; set; }
+        public string location { get; set; }
+    }
+}
