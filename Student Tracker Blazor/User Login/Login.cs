@@ -4,7 +4,8 @@ namespace Student_Tracker_Blazor
 {
     public class Login
     {
-        public void LoginThing()
+        User currentUser;
+        public User LoginInterface()
         {   /*
             Console.WriteLine("Hello World! Imma make a student, an admin, and a teacher!");
             Student student = new Student();
@@ -26,29 +27,33 @@ namespace Student_Tracker_Blazor
 
             Console.WriteLine($"Here is the student!\nName: {student.FirstName}\nEnumber: {student.ENumber}\nEmail: {student.Emailaddr}\nPassword: {student.Password}\n");
             Console.WriteLine($"Here is the admin!\nName: {admin.FirstName}\nEmail: {admin.Emailaddr}\nPassword: {admin.Password}\n");
-            Console.WriteLine($"Here is the teacher!\nName: {teacher.FirstName}\nEmail: {teacher.Emailaddr}\nPassword: {teacher.Password}\n"); */
+            Console.WriteLine($"Here is the teacher!\nName: {teacher.FirstName}\nEmail: {teacher.Emailaddr}\nPassword: {teacher.Password}\n"); 
+            */
 
             bool notLoggedIn = true;
-            User user = new User();
+            currentUser = new User();
 
             User testUser = new User();
             testUser.Password = "bingus";
-            testUser.Emailaddr = "thingy@gmail.com";
+            testUser.Emailaddr = "thingy@gmail.com";  // This will not be in the final product. Be sure to delete this when you're working on things. 
 
             while (notLoggedIn)
             {
                 Console.Write("This is a login! What is your email address?\t");
-                user.Emailaddr = Console.ReadLine();
+                currentUser.Emailaddr = Console.ReadLine();
 
-                Console.Write("\n\nWhat is your password?\t");
-                user.Password = Console.ReadLine();
+                Console.Write("What is your password?\t");
+                currentUser.Password = Console.ReadLine();
 
-                if ((user.Emailaddr == testUser.Emailaddr) && (user.Password == testUser.Password))
+                if ((currentUser.Emailaddr == testUser.Emailaddr) && (currentUser.Password == testUser.Password))  // Instead of this, the program should search through the database for the email address
+                                                                                                     // and then compare the password hash with the database's version of the password for the email
                 {
                     notLoggedIn = false;
                     Console.WriteLine("Congratulations! You logged in!");
+                    //From here, the database should be referenced to load in all the user information to be used for the rest of the program.
                     Console.Write("Press enter to continue...");
                     Console.ReadLine();
+                    return currentUser;
                 }
                 else
                 {
@@ -59,6 +64,15 @@ namespace Student_Tracker_Blazor
                 }
 
             }
+            currentUser = new User();
+            return currentUser;
+
+        }
+
+        public User Logout()
+        {
+            currentUser = new User();
+            return currentUser;
         }
     }
 }
