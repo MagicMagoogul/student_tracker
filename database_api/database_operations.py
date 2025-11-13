@@ -281,7 +281,7 @@ def hours_logged_delete(hours_logged_id: int):
 
 
 def database_init():
-    DATABASE_URL = "sqlite:///./StudentTracker.db"
+    DATABASE_URL = "sqlite:///../Student Tracker Blazor/Data/StudentTracker.db"
 
     engine = create_engine(DATABASE_URL, pool_size=5, pool_recycle=1800, pool_pre_ping=True)
 
@@ -289,23 +289,3 @@ def database_init():
 
     global session
     session = session_factory()
-
-    new_user = dict()
-    new_user["user_id"] = "1"
-    new_user["emailaddr"] = "loel@gov.com"
-    new_user["password"] = "tjdlkagwerokfn"
-    new_user["first_name"] = "Me"
-    new_user["last_name"] = "Johnson"
-    new_user["created_at"] = "Right Now"
-    new_user["updated_at"] = "Never"
-    new_user["role"] = "Student"
-    #user_create(new_user)
-    #user_delete(2)
-
-    new_student = dict()
-    new_student["student_id"] = "1"
-    new_student["user_id"] = "1"
-    new_student["enumber"] = "E001724"
-    new_student["professor_id"] = "2"
-    #student_create(new_student)
-    #student_delete(1)

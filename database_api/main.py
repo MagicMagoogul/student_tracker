@@ -230,4 +230,5 @@ async def delete_hours_logged(hoursLoggedId: str):
 def main():
     database_init()
 
+
 main()
