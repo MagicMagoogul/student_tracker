@@ -32,9 +32,10 @@ namespace Student_Tracker_Blazor
             app.UseAntiforgery();
 
             app.MapRazorComponents<App>()
-                .AddInteractiveServerRenderMode();
+               .AddInteractiveServerRenderMode();
 
             app.Run();
         }
     }
 }
+

@@ -2,45 +2,12 @@
 @rendermode InteractiveServer
 
 
-<h1>Viewing Student Hours</h1>
-
-<!--<input @bind="searchTerm" placeholder="" class="form-control" />
-
-<button class="btn btn-primary mt-2" @onclick="SearchStudent">Search</button>
-<button class="btn btn-secondary mt-2 ml-2" @onclick="LoadAllStudents">View All</button>
-
-@if (students is not null && students.Any())
-{
-    <table class="table table-striped mt-4">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Hours Completed</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in students)
-            {
-                <tr>
-                    <td>@student.FullName</td>
-                    <td>@student.HoursCompleted</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else if (students is not null)
-{
-    <p>No students found.</p>
-}
-
-
-
-@code{
-
-    private string searchTerm;
-    private List<Student> students;
-
-}
-
--->
+<table class="table-bordered">
+    <thead>Viewing Student Hours</thead>
+        <tr>
+            <th>ENumber</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Hours Worked</th>
+        </tr>
+</table>

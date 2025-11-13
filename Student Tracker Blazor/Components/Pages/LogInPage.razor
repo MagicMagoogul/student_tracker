@@ -1,14 +1,45 @@
 ﻿@page "/LogInPage"
 @rendermode InteractiveServer
 
+<div class="login-container">
+    <h2>LOGIN</h2>
 
-<h3>LogInPage</h3>
+    <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-<button class="btn btn-primary" @onclick="Loel">Loel</button>
+        <div class="input-group">
+            <label>Email</label>
+            <InputText @bind-Value="loginModel.Email" placeholder="Enter your email" />
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <InputText @bind-Value="loginModel.Password" type="password" placeholder="Enter your password" />
+        </div>
+
+        <div class="remember">
+            <InputCheckbox @bind-Value="loginModel.RememberMe" />
+            <label>Remember me</label>
+        </div>
+
+        <button type="submit">LOGIN</button>
+    </EditForm>
+</div>
 
 @code {
-    public async void Loel()
+    private LoginModel loginModel = new();
+
+    private void HandleLogin()
     {
-        await APIServices.GetUsersAsync();
+        // Placeholder for authentication logic
+        Console.WriteLine($"Email: {loginModel.Email}, Remember: {loginModel.RememberMe}");
+    }
+
+    public class LoginModel
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public bool RememberMe { get; set; }
     }
 }
