@@ -2,7 +2,7 @@ import sqlalchemy
 from sqlalchemy import Column, String, Integer, create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from models import User, Student, Professor, Admin
+from models import User, Student, Professor, Admin, HoursLogged
 
 # User
 
@@ -44,6 +44,7 @@ def user_create(new_user: dict):
     try:
         global session
         user = User(int(new_user["user_id"]), new_user["emailaddr"], new_user["password"], new_user["first_name"], new_user["last_name"], new_user["created_at"], new_user["updated_at"], new_user["role"])
+        #user = User(None, new_user["emailaddr"], new_user["password"], new_user["first_name"], new_user["last_name"], new_user["created_at"], new_user["updated_at"], new_user["role"])
         session.add(user)
         session.commit()
         return user
@@ -71,20 +72,12 @@ def get_students():
         print(f"get_students failed: {e}")
 
 
-def get_student(student_id: int):
-    try:
-        global session
-        return session.query(Student).where(Student.StudentId == student_id).first()
-    except Exception as e:
-        print(f"get_student failed: {e}")
-
-
-def get_student_by_user_id(user_id: int):
+def get_student(user_id: int):
     try:
         global session
         return session.query(Student).where(Student.UserId == user_id).first()
     except Exception as e:
-        print(f"get_student_by_user_id failed: {e}")
+        print(f"get_student failed: {e}")
 
 
 def student_update(student_id: int, updated_student: dict):
@@ -132,20 +125,12 @@ def get_professors():
         print(f"get_professors failed: {e}")
 
 
-def get_professor(professor_id: int):
-    try:
-        global session
-        return session.query(Professor).where(Professor.ProfessorId == professor_id).first()
-    except Exception as e:
-        print(f"get_professor failed: {e}")
-
-
-def get_professor_by_user_id(user_id: int):
+def get_professor(user_id: int):
     try:
         global session
         return session.query(Professor).where(Professor.UserId == user_id).first()
     except Exception as e:
-        print(f"get_professor_by_user_id failed: {e}")
+        print(f"get_professor failed: {e}")
 
 
 def professor_update(professor_id: int, updated_professor: dict):
@@ -191,20 +176,12 @@ def get_admins():
         print(f"get_admins failed: {e}")
 
 
-def get_admin(admin_id: int):
-    try:
-        global session
-        return session.query(Admin).where(Admin.AdminId == admin_id).first()
-    except Exception as e:
-        print(f"get_admin failed: {e}")
-
-
-def get_admin_by_user_id(user_id: int):
+def get_admin(user_id: int):
     try:
         global session
         return session.query(Admin).where(Admin.UserId == user_id).first()
     except Exception as e:
-        print(f"get_admin_by_user_id failed: {e}")
+        print(f"get_admin failed: {e}")
 
 
 def admin_update(admin_id: int, updated_admin: dict):
@@ -240,6 +217,69 @@ def admin_delete(admin_id: int):
         print(f"admin_delete failed: {e}")
 
 
+# HoursLogged
+
+def get_all_hours_logged():
+    try:
+        global session
+        return session.query(HoursLogged).all()
+    except Exception as e:
+        print(f"get_all_hours_logged failed: {e}")
+
+
+def get_hours_logged(hours_logged_id: int):
+    try:
+        global session
+        return session.query(HoursLogged).where(HoursLogged.HoursLoggedId == hours_logged_id).first()
+    except Exception as e:
+        print(f"get_hours_logged failed: {e}")
+
+
+def get_hours_logged_for_student(student_id: int):
+    try:
+        global session
+        return session.query(HoursLogged).where(HoursLogged.StudentId == student_id)
+    except Exception as e:
+        print(f"get_hours_logged_for_student failed: {e}")
+
+
+def hours_logged_update(hours_logged_id: int, updated_hours_logged: dict):
+    try:
+        global session
+        hours_logged = session.query(HoursLogged).where(HoursLogged.HoursLoggedId == hours_logged_id).first()
+        hours_logged.HoursLoggedId = int(updated_hours_logged["hours_logged_id"])
+        hours_logged.StudentId = int(updated_hours_logged["student_id"])
+        hours_logged.Hours = updated_hours_logged["hours"]
+        hours_logged.Location = updated_hours_logged["location"]
+        hours_logged.ShiftDate = updated_hours_logged["shift_date"]
+        hours_logged.LoggingDate = updated_hours_logged["logging_date"]
+        session.commit()
+        return hours_logged
+    except Exception as e:
+        print(f"hours_logged_update failed: {e}")
+
+
+def hours_logged_create(new_hours_logged: dict):
+    try:
+        global session
+        hours_logged = HoursLogged(int(new_hours_logged["hours_logged_id"]), int(new_hours_logged["student_id"]), new_hours_logged["hours"], new_hours_logged["location"], new_hours_logged["shift_date"], new_hours_logged["logging_date"])
+        session.add(hours_logged)
+        session.commit()
+        return hours_logged
+    except Exception as e:
+        print(f"hours_logged_create failed: {e}")
+
+
+def hours_logged_delete(hours_logged_id: int):
+    try:
+        global session
+        hours_logged = session.query(HoursLogged).where(HoursLogged.HoursLoggedId == hours_logged_id).first()
+        session.delete(hours_logged)
+        session.commit()
+    except Exception as e:
+        print(f"hours_logged_delete failed: {e}")
+
+
 def database_init():
     DATABASE_URL = "sqlite:///./StudentTracker.db"
 
@@ -260,3 +300,12 @@ def database_init():
     new_user["updated_at"] = "Never"
     new_user["role"] = "Student"
     #user_create(new_user)
+    #user_delete(2)
+
+    new_student = dict()
+    new_student["student_id"] = "1"
+    new_student["user_id"] = "1"
+    new_student["enumber"] = "E001724"
+    new_student["professor_id"] = "2"
+    #student_create(new_student)
+    #student_delete(1)

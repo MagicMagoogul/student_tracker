@@ -8,7 +8,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "Users"
 
-    UserId = Column(Integer, primary_key=True)
+    UserId = Column(Integer, primary_key=True, nullable=True, autoincrement=True)
 
     EmailAddr = Column(String)
     Password = Column(String)
@@ -19,7 +19,7 @@ class User(Base):
     CreatedAt = Column(String)
     UpdatedAt = Column(String)
 
-    Role = Column(Integer)
+    Role = Column(String)
 
     def __init__(self, user_id: int, emailaddr: str, password: str, firstname: str, lastname: str, created_at: str, updated_at: str, role: str):
         self.UserId = user_id
@@ -46,7 +46,7 @@ class User(Base):
         json = dict()
         json["user_id"] = self.UserId
         json["emailaddr"] = self.EmailAddr
-        #json["password"] = self.Password
+        json["password"] = ""
         json["first_name"] = self.FirstName
         json["last_name"] = self.LastName
         json["created_at"] = self.CreatedAt
@@ -55,7 +55,7 @@ class User(Base):
         return json
 
 
-class Student():
+class Student(Base):
     __tablename__ = "Students"
 
     StudentId = Column(Integer, primary_key=True)
@@ -123,4 +123,41 @@ class Admin(Base):
         json = dict()
         json["admin_id"] = self.AdminId
         json["user_id"] = self.UserId
+        return json
+
+
+class HoursLogged(Base):
+    __tablename__ = "HoursLogged"
+
+    HoursLoggedId = Column(Integer, primary_key=True)
+    StudentId = Column(Integer, ForeignKey(Student.StudentId))
+    Hours = Column(String)
+    Location = Column(String)
+    ShiftDate = Column(String)
+    LoggingDate = Column(String)
+
+    def __init__(self, hours_logged_id: int, student_id: int, hours: str, location: str, shift_date: str, logging_date: str):
+        self.HoursLoggedId = hours_logged_id
+        self.StudentId = student_id
+        self.Hours = hours
+        self.Location = location
+        self.ShiftDate = shift_date
+        self.LoggingDate = logging_date
+
+    def __repr__(self):
+        return f"""{self.HoursLoggedId}
+{self.StudentId}
+{self.Hours}
+{self.Location}
+{self.ShiftDate}
+{self.LoggingDate}"""
+
+    def json(self):
+        json = dict()
+        json["hours_logged_id"] = self.HoursLoggedId
+        json["student_id"] = self.StudentId
+        json["hours"] = self.Hours
+        json["location"] = self.Location
+        json["shift_date"] = self.ShiftDate
+        json["logging_date"] = self.LoggingDate
         return json
