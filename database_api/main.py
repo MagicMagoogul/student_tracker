@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
-from database_operations import database_init, get_users, get_user, user_update, user_create, user_delete, get_students, get_student, student_create, student_delete, student_update, professor_create, professor_delete, professor_update, get_professor, get_professors, admin_create, admin_delete, admin_update, get_admin, get_admins, hours_logged_create, hours_logged_delete, hours_logged_update, get_hours_logged, get_hours_logged_for_student, get_all_hours_logged
-from models import User
+from database_operations import *
+from models import *
 
 app = FastAPI()
 
