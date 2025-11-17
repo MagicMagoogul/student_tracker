@@ -27,6 +27,13 @@
         </div>
 
         <button class="mb-3" type="submit">Submit Hours</button>
+
+        @if (!string.IsNullOrEmpty(successMessage))
+        {
+            <div class="alert" alert-success mt-3>
+                @successMessage
+            </div>    
+        }
     </EditForm>
 
 </div>
@@ -35,16 +42,30 @@
 {
     private LogHoursModel logHoursModel = new();
     private HoursLoggedJson hoursLoggedJson = new();
+    private string? successMessage;
 
-    private async void PushLogHours()
+    private async Task PushLogHours()
     {
         hoursLoggedJson.studentId = logHoursModel.studentId;
         hoursLoggedJson.hours = logHoursModel.hours;
         hoursLoggedJson.location = logHoursModel.location;
         hoursLoggedJson.shiftDate = logHoursModel.shiftDate;
         hoursLoggedJson.loggingDate = logHoursModel.loggingDate;
+        
+        //push form info to HoursLogged db table
+        await APIServices.CreateHoursLoggedAsync(hoursLoggedJson);   
+        
+        //show message for 5 seconds and then hide again
+        successMessage = "Hours successfully logged!";
+        StateHasChanged();
 
-        await APIServices.CreateHoursLoggedAsync(hoursLoggedJson);
+        await Task.Delay(5000);
+
+        successMessage = null;
+        StateHasChanged();
+
+        //reset form
+        logHoursModel = new();
     }
 
     public class LogHoursModel
