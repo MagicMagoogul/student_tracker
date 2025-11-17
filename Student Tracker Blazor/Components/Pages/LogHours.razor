@@ -1,5 +1,6 @@
 @page "/loghours"
 @rendermode InteractiveServer
+@using Student_Tracker_Blazor
 
 <PageTitle>Log Hours</PageTitle>
 
@@ -7,37 +8,51 @@
 
 <div class="container mt-5">
     <EditForm Model="@logHoursModel" OnValidSubmit="PushLogHours">
-        
+
         <div class="row">
             <div class="col-md-6">
                 <label>Hours</label>
-                <InputText @bind-Value="logHoursModel.hours" placeholder="Enter hours"/>
+                <InputText @bind-Value="logHoursModel.hours" placeholder="Enter hours" />
             </div>
 
             <div class="col-md-6">
                 <label>Location</label>
-                <InputText @bind-Value="logHoursModel.location" placeholder="Enter location"/>
+                <InputText @bind-Value="logHoursModel.location" placeholder="Enter location" />
+            </div>
+
+            <div class="col-md-6">
+                <label>Date</label>
+                <InputText @bind-Value="logHoursModel.shiftDate" placeholder="Enter date of the shift" />
             </div>
         </div>
-        
+
         <button class="mb-3" type="submit">Submit Hours</button>
     </EditForm>
 
 </div>
 
-@code 
+@code
 {
     private LogHoursModel logHoursModel = new();
+    private HoursLoggedJson hoursLoggedJson = new();
 
-    private void PushLogHours()
+    private async void PushLogHours()
     {
-        //placeholder for API push to database
-        Console.WriteLine($"Hours worked: {logHoursModel.hours} ; Location worked: {logHoursModel.location}");
+        hoursLoggedJson.studentId = logHoursModel.studentId;
+        hoursLoggedJson.hours = logHoursModel.hours;
+        hoursLoggedJson.location = logHoursModel.location;
+        hoursLoggedJson.shiftDate = logHoursModel.shiftDate;
+        hoursLoggedJson.loggingDate = logHoursModel.loggingDate;
+
+        await APIServices.CreateHoursLoggedAsync(hoursLoggedJson);
     }
 
     public class LogHoursModel
     {
+        public int studentId = 1;   //placeholder until currentUser variable is implemented
         public string hours { get; set; }
         public string location { get; set; }
+        public string shiftDate { get; set; }
+        public string loggingDate = (DateTime.Today).ToString();
     }
 }
