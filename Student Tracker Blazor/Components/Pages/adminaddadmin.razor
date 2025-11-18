@@ -1,0 +1,35 @@
+﻿@page "/Adminaddadmin"
+@rendermode InteractiveServer
+<PageTitle>Admin Add Admin</PageTitle>
+
+<h3>Admin Add Admin</h3>
+
+<h1>Input Admin Information</h1>
+<EditForm Model="@myModel">
+    <InputText @bind-Value="myModel.EmailAddr" placeholder="EmailAddr"/>
+    <InputText @bind-Value="myModel.Password" placeholder="Password" />
+    <InputText @bind-Value="myModel.FirstName" placeholder="FirstName" />
+    <InputText @bind-Value="myModel.LastName" placeholder="LastName" />
+</EditForm>
+
+<button @onclick="HandleButtonClick">Submit!</button>
+
+
+@code
+{
+    private MyDataModel myModel = new MyDataModel();
+    private ManageUsers manageUsers;
+
+    public class MyDataModel
+    {
+        public string EmailAddr { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+
+    public void HandleButtonClick()
+    {
+        manageUsers.AddAdmin();
+    }
+}
