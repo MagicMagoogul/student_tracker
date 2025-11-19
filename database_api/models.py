@@ -58,7 +58,7 @@ class User(Base):
 class Student(Base):
     __tablename__ = "Students"
 
-    StudentId = Column(Integer, primary_key=True)
+    StudentId = Column(Integer, primary_key=True, nullable=True, autoincrement=True)
     UserId = Column(Integer, ForeignKey(User.UserId))
     ENumber = Column(String)
     ProfessorId = Column(Integer)
@@ -87,7 +87,7 @@ class Student(Base):
 class Professor(Base):
     __tablename__ = "Professors"
 
-    ProfessorId = Column(Integer, primary_key=True)
+    ProfessorId = Column(Integer, primary_key=True, nullable=True, autoincrement=True)
     UserId = Column(Integer, ForeignKey(User.UserId))
 
     def __init__(self, professor_id: int, user_id: int):
@@ -108,7 +108,7 @@ class Professor(Base):
 class Admin(Base):
     __tablename__ = "Admins"
 
-    AdminId = Column(Integer, primary_key=True)
+    AdminId = Column(Integer, primary_key=True, nullable=True, autoincrement=True)
     UserId = Column(Integer, ForeignKey(User.UserId))
 
     def __init__(self, admin_id: int, user_id: int):
@@ -129,7 +129,7 @@ class Admin(Base):
 class HoursLogged(Base):
     __tablename__ = "HoursLogged"
 
-    HoursLoggedId = Column(Integer, primary_key=True)
+    HoursLoggedId = Column(Integer, primary_key=True, nullable=True, autoincrement=True)
     StudentId = Column(Integer, ForeignKey(Student.StudentId))
     Hours = Column(String)
     Location = Column(String)

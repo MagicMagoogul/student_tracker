@@ -64,8 +64,17 @@ async def read_students():
         student_list.append(student.json())
     return student_list
 
+
 @app.get("/students/{userId}")
 async def read_student(userId: str = ""):
+    student = get_student(int(userId))
+    if not student:
+        return
+    return student.json()
+
+
+@app.get("/students/enumber/{enumber}")
+async def read_student_by_enumber(enumber: str = ""):
     student = get_student(int(userId))
     if not student:
         return
@@ -112,6 +121,17 @@ async def read_professor(userId: str = ""):
     if not professor:
         return
     return professor.json()
+
+
+@app.get("/professors/students/{userId}")
+async def read_professor_students(userId: str = ""):
+    students = get_professor_students()
+    if not students:
+        return
+    student_list = list()
+    for student in students:
+        student_list.append(student.json())
+    return student_list
 
 
 @app.put("/professors/{professorId}", response_model=dict)

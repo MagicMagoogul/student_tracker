@@ -15,11 +15,19 @@ namespace Student_Tracker_Blazor
 
         // Users
 
-        public static async Task<string> CreateUserAsync(UserJson user)
+        /// <summary>Given user.userId is ignored.</summary>
+        /// <returns>UserJson object containing id assigned by the database.
+        ///  Returns a UserJson object with -1 id on failure.</returns>
+        public static async Task<UserJson> CreateUserAsync(UserJson user)
         {
             var response = await _httpClient.PostAsJsonAsync("users/", user);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            Task<UserJson> userJson = response.Content.ReadFromJsonAsync<UserJson>();
+            if (userJson != null)
+            {
+                return userJson.Result;
+            }
+            return new UserJson();
         }
 
         public static async Task<List<UserJson>> GetUsersAsync()
@@ -50,11 +58,34 @@ namespace Student_Tracker_Blazor
 
         // Students
 
-        public static async Task<string> CreateStudentAsync(StudentJson student)
+        /// <summary>Given student.userId and student.studentId is ignored.</summary>
+        /// <returns>StudentJson object containing id assigned by the database.
+        ///  Returns a StudentJson object with -1 id on failure.</returns>
+        public static async Task<StudentJson> CreateStudentAsync(StudentJson student)
         {
             var response = await _httpClient.PostAsJsonAsync("students/", student);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            Task<StudentJson> studentJson = response.Content.ReadFromJsonAsync<StudentJson>();
+            if (studentJson != null)
+            {
+                return studentJson.Result;
+            }
+            return new StudentJson();
+        }
+
+        /// <summary>Given user.userId, user.role, student.userId, and student.studentId is ignored.</summary>
+        /// <returns>True on success, false on failure.</returns>
+        public static async Task<bool> CreateStudentAsync(UserJson user, StudentJson student)
+        {
+            user.role = "student";
+            UserJson userJson = await CreateUserAsync(user);
+            student.userId = userJson.userId;
+            StudentJson studentJson = await CreateStudentAsync(student);
+            if (studentJson.studentId != -1)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static async Task<List<StudentJson>> GetStudentsAsync()
@@ -85,11 +116,34 @@ namespace Student_Tracker_Blazor
 
         // Teacher
 
-        public static async Task<string> CreateTeacherAsync(TeacherJson teacher)
+        /// <summary>Given teacher.userId and teacher.professorId is ignored.</summary>
+        /// <returns>TeacherJson object containing id assigned by the database.
+        ///  Returns a TeacherJson object with -1 id on failure.</returns>
+        public static async Task<TeacherJson> CreateTeacherAsync(TeacherJson teacher)
         {
             var response = await _httpClient.PostAsJsonAsync("professors/", teacher);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            Task<TeacherJson> teacherJson = response.Content.ReadFromJsonAsync<TeacherJson>();
+            if (teacherJson != null)
+            {
+                return teacherJson.Result;
+            }
+            return new TeacherJson();
+        }
+
+        /// <summary>Given user.userId, user.role, teacher.userId, and teacher.professorId is ignored.</summary>
+        /// <returns>True on success, false on failure.</returns>
+        public static async Task<bool> CreateTeacherAsync(UserJson user, TeacherJson teacher)
+        {
+            user.role = "professor";
+            UserJson userJson = await CreateUserAsync(user);
+            teacher.userId = userJson.userId;
+            TeacherJson teacherJson = await CreateTeacherAsync(teacher);
+            if (teacherJson.professorId != -1)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static async Task<List<TeacherJson>> GetTeachersAsync()
@@ -120,11 +174,33 @@ namespace Student_Tracker_Blazor
 
         // Admin
 
-        public static async Task<string> CreateAdminAsync(AdminJson admin)
+        /// <summary>Given admin.userId and admin.adminId is ignored.</summary>
+        /// <returns>AdminJson object containing id assigned by the database.
+        ///  Returns a AdminJson object with -1 id on failure.</returns>
+        public static async Task<AdminJson> CreateAdminAsync(AdminJson admin)
         {
             var response = await _httpClient.PostAsJsonAsync("admins/", admin);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            Task<AdminJson> adminJson = response.Content.ReadFromJsonAsync<AdminJson>();
+            if (adminJson != null)
+            {
+                return adminJson.Result;
+            }
+            return new AdminJson();
+        }
+
+        /// <summary>Given user.userId, user.role, admin.userId, and admin.adminId is ignored.</summary>
+        /// <returns>True on success, false on failure.</returns>
+        public static async Task<bool> CreateAdminAsync(UserJson user, AdminJson admin)
+        {
+            user.role = "admin";
+            UserJson userJson = await CreateUserAsync(user);
+            admin.userId = userJson.userId;
+            AdminJson adminJson = await CreateAdminAsync(admin);
+            if (adminJson.adminId != -1)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static async Task<List<AdminJson>> GetAdminAsync()
