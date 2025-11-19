@@ -22,11 +22,27 @@ def get_user(user_id: int):
         print(f"get_user failed: {e}")
 
 
+def get_user_by_first_name(first_name: int):
+    try:
+        global session
+        return session.query(User).where(User.FirstName == first_name)
+    except Exception as e:
+        print(f"get_user_by_first_name failed: {e}")
+
+
+def get_user_by_last_name(last_name: int):
+    try:
+        global session
+        return session.query(User).where(User.LastName == last_name)
+    except Exception as e:
+        print(f"get_user_by_last_name failed: {e}")
+
+
 def user_update(user_id: int, updated_user: dict):
     try:
         global session
         user = session.query(User).where(User.UserId == user_id).first()
-        user.UserId = int(updated_user["user_id"])
+        #user.UserId = int(updated_user["user_id"])
         user.EmailAddr = updated_user["emailaddr"]
         user.Password = updated_user["password"]
         user.FirstName = updated_user["first_name"]
@@ -43,8 +59,7 @@ def user_update(user_id: int, updated_user: dict):
 def user_create(new_user: dict):
     try:
         global session
-        user = User(int(new_user["user_id"]), new_user["emailaddr"], new_user["password"], new_user["first_name"], new_user["last_name"], new_user["created_at"], new_user["updated_at"], new_user["role"])
-        #user = User(None, new_user["emailaddr"], new_user["password"], new_user["first_name"], new_user["last_name"], new_user["created_at"], new_user["updated_at"], new_user["role"])
+        user = User(None, new_user["emailaddr"], new_user["password"], new_user["first_name"], new_user["last_name"], new_user["created_at"], new_user["updated_at"], new_user["role"])
         session.add(user)
         session.commit()
         return user
@@ -80,6 +95,24 @@ def get_student(user_id: int):
         print(f"get_student failed: {e}")
 
 
+def get_student_by_enumber(enumber: int):
+    try:
+        global session
+        return session.query(Student).where(Student.ENumber == enumber).first()
+    except Exception as e:
+        print(f"get_student_by_enumber failed: {e}")
+
+
+def get_student_by_first_name(first_name: int):
+    try:
+        global session
+        user = get_user_by_first_name(first_name)
+
+        #return session.query(Student).where(Student.UserId == ).first()
+    except Exception as e:
+        print(f"get_student_by_enumber failed: {e}")
+
+
 def student_update(student_id: int, updated_student: dict):
     try:
         global session
@@ -97,7 +130,7 @@ def student_update(student_id: int, updated_student: dict):
 def student_create(new_student: dict):
     try:
         global session
-        student = Student(int(new_student["student_id"]), int(new_student["user_id"]), new_student["enumber"], int(new_student["professor_id"]))
+        student = Student(None, int(new_student["user_id"]), new_student["enumber"], int(new_student["professor_id"]))
         session.add(student)
         session.commit()
         return student
@@ -133,6 +166,15 @@ def get_professor(user_id: int):
         print(f"get_professor failed: {e}")
 
 
+def get_professor_students(user_id: int):
+    try:
+        global session
+        professor = get_professor(user_id)
+        return session.query(Student).where(Student.ProfessorId == professor.ProfessorId)
+    except Exception as e:
+        print(f"get_professor_students failed: {e}")
+
+
 def professor_update(professor_id: int, updated_professor: dict):
     try:
         global session
@@ -148,7 +190,7 @@ def professor_update(professor_id: int, updated_professor: dict):
 def professor_create(new_professor: dict):
     try:
         global session
-        professor = Professor(int(new_professor["professor_id"]), int(new_professor["user_id"]))
+        professor = Professor(None, int(new_professor["user_id"]))
         session.add(professor)
         session.commit()
         return professor
@@ -199,7 +241,7 @@ def admin_update(admin_id: int, updated_admin: dict):
 def admin_create(new_admin: dict):
     try:
         global session
-        admin = Admin(int(new_admin["admin_id"]), int(new_admin["user_id"]))
+        admin = Admin(None, int(new_admin["user_id"]))
         session.add(admin)
         session.commit()
         return admin
@@ -262,7 +304,7 @@ def hours_logged_update(hours_logged_id: int, updated_hours_logged: dict):
 def hours_logged_create(new_hours_logged: dict):
     try:
         global session
-        hours_logged = HoursLogged(int(new_hours_logged["hours_logged_id"]), int(new_hours_logged["student_id"]), new_hours_logged["hours"], new_hours_logged["location"], new_hours_logged["shift_date"], new_hours_logged["logging_date"])
+        hours_logged = HoursLogged(None, int(new_hours_logged["student_id"]), new_hours_logged["hours"], new_hours_logged["location"], new_hours_logged["shift_date"], new_hours_logged["logging_date"])
         session.add(hours_logged)
         session.commit()
         return hours_logged

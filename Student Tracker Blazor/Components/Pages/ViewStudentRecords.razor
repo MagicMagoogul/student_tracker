@@ -1,6 +1,41 @@
 ﻿@page "/viewstudentrecords"
-<h1>ViewStudentRecords</h1>
+@rendermode InteractiveServer
+@using Student_Tracker_Blazor
+
+<h1>Viewing Student Records</h1>
+
+
+<table class="table-bordered">
+    <thead>Viewing Student Hours</thead>
+    <tr>
+        <th>ENumber</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Hours Worked</th>
+    </tr>
+    <tbody>
+        <!--@foreach (var student in students)
+        {
+            <tr>
+                <td>@student.ENumber</td>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+                <td></td>
+            </tr>
+        }-->
+    </tbody>
+</table>
+
 
 @code {
+    /*private List<Student>? students;
+    private string search = string.Empty;
 
+    protected override async Task OnInitializedAsync()
+    {
+        //students = await APIServices.GetStudentsAsync();
+    }
+
+    private IEnumerable<Student> Filtered => string.IsNullOrWhiteSpace(search) ? students : students.Where(s => s.LastName.Contains(search, StringComparison.OrdinalIgnoreCase));
+    */
 }
