@@ -6,14 +6,19 @@
 <h3>Admin Manage Users</h3>
 
 <p>This is a page dedicated to allowing the admins to add and remove users/monitor user activity</p>
-
-<EditForm Model="@myModel">
-    <InputText @bind-Value="myModel.MyTextProperty" placeholder="Enter text here" />
-</EditForm>
+<p>@myModel.SelectedValue</p>
 
 
-<button @onclick="HandleButtonClick">Click Me!</button>
-<p>@myModel.MyTextProperty</p>
+<select @bind="myModel.SelectedValue">
+    <option value="">-- Select an option --</option>
+    <option value="admin">Admin</option>
+    <option value="professor">Professor</option>
+    <option value="student">Student</option>
+</select>
+<button @onclick="HandleButtonClick">Submit</button>
+
+
+
 
 
 
@@ -23,10 +28,14 @@
 
     public class MyDataModel
     {
-        public string MyTextProperty { get; set; }
+
+        public string SelectedValue { get; set; }
+
+        public MyDataModel()
+        {
+            SelectedValue = "";
+        }
     }
-    
-    private string message = "Button not clicked yet.";
 
     protected override void OnInitialized()
     {
@@ -36,7 +45,7 @@
 
     public void HandleButtonClick()
     {
-        manageUsers.AddUser(myModel.MyTextProperty);
+        manageUsers.AddUser(myModel.SelectedValue);
     }
 
     

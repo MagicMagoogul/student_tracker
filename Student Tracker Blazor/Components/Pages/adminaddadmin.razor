@@ -1,5 +1,6 @@
-﻿@page "/Adminaddadmin"
+﻿@page "/adminaddadmin"
 @rendermode InteractiveServer
+@inject NavigationManager Nav
 <PageTitle>Admin Add Admin</PageTitle>
 
 <h3>Admin Add Admin</h3>
@@ -28,8 +29,15 @@
         public string LastName { get; set; }
     }
 
+    protected override void OnInitialized()
+    {
+        // Pass the injected NavigationManager into your class
+        manageUsers = new ManageUsers(Nav);
+    }
+
     public void HandleButtonClick()
     {
-        manageUsers.AddAdmin();
+        manageUsers.AddAdmin(myModel.EmailAddr, myModel.Password, myModel.FirstName, myModel.LastName);
+        Nav.NavigateTo("/adminmanageusers");
     }
 }

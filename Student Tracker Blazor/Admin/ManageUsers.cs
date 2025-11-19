@@ -12,6 +12,8 @@ namespace Student_Tracker_Blazor
     {
         private readonly NavigationManager navMan;
 
+        public ManageUsers() { }
+
         public ManageUsers(NavigationManager nav)
         {
             navMan = nav;
@@ -25,7 +27,7 @@ namespace Student_Tracker_Blazor
                 //void MethodToTriggerURL()
                     //NavigationManager.NavigateTo("PageToRedirect");
                 case "admin":
-                    navMan.NavigateTo("/Adminaddadmin");
+                    navMan.NavigateTo("/adminaddadmin");
                     break;
                 case "student":
                     break;
@@ -36,14 +38,20 @@ namespace Student_Tracker_Blazor
 
         public void AddAdmin(string emailAddr, string password, string firstName, string lastName)
         {
-            AdminJson admin = new AdminJson();
+            UserJson user = new UserJson();
 
-            admin.EmailAddr= emailAddr;
-            admin.Password = password;
-            admin.FirstName = firstName;
-            admin.LastName = lastName;
-            admin.CreatedAt = DateTime.Now.ToString();
-            admin.UpdatedAt = DateTime.Now.ToString();
+            user.emailaddr = emailAddr;
+            user.password = password;
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.createdAt = DateTime.Now.ToString();
+            user.updatedAt = DateTime.Now.ToString();
+
+
+            AdminJson andmin = new AdminJson();
+
+           
+            APIServices.CreateAdminAsync(user, andmin);
         }
     }
 }
