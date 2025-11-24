@@ -1,6 +1,8 @@
 ﻿@page "/viewstudentrecords"
 @rendermode InteractiveServer
 @using Student_Tracker_Blazor
+@using System.Linq
+@inject HttpClient Http
 
 <h1>Viewing Student Records</h1>
 
@@ -14,28 +16,43 @@
         <th>Hours Worked</th>
     </tr>
     <tbody>
-        <!--@foreach (var student in students)
+        @foreach (var student in students)
         {
             <tr>
+                <!--
                 <td>@student.ENumber</td>
                 <td>@student.FirstName</td>
                 <td>@student.LastName</td>
-                <td></td>
+                <td>@student.hours</td>
+                -->
             </tr>
-        }-->
+        }
     </tbody>
 </table>
 
 
 @code {
-    /*private List<Student>? students;
-    private string search = string.Empty;
+    private List<StudentJson> students;
+    private List<UserJson> users;
+    private List<List<HoursLoggedJson>> hours;
+
 
     protected override async Task OnInitializedAsync()
     {
-        //students = await APIServices.GetStudentsAsync();
+        students = await APIServices.GetStudentsAsync();
+        users = await APIServices.GetUsersAsync();
+
+        for (int i = 0; i < students.Count; i++)
+        {
+            StudentJson student = students[i];
+            //hours[i] = await APIServices.GetHoursLoggedByStudentAsync(student.studentId);
+            
+        }
+
+
+
     }
 
-    private IEnumerable<Student> Filtered => string.IsNullOrWhiteSpace(search) ? students : students.Where(s => s.LastName.Contains(search, StringComparison.OrdinalIgnoreCase));
-    */
+
+
 }
