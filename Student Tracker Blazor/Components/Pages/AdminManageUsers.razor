@@ -5,18 +5,24 @@
 
 <h3>Admin Manage Users</h3>
 
-<p>This is a page dedicated to allowing the admins to add and remove users/monitor user activity</p>
-<p>@myModel.SelectedValue</p>
-
-
-<select @bind="myModel.SelectedValue">
+<p>This is the selection for creating a user and inserting it into the database. Choose a user type below!</p>
+<select @bind="myModel.CreateValue">
     <option value="">-- Select an option --</option>
     <option value="admin">Admin</option>
     <option value="professor">Professor</option>
     <option value="student">Student</option>
 </select>
-<button @onclick="HandleButtonClick">Submit</button>
-
+<button @onclick="HandleCreation">Create</button>
+<!--
+<p>This is the selection for deleting a user!</p>
+<p>We need information to search the database for. Specify the type of information and </p>
+<select @bind="myModel.DeleteValue">
+    <option value="">-- Select an option --</option>
+    <option value="email">Email</option>
+</select>
+<InputText @bind-Value="myModel.DeleteInput" placeholder="Enumber" />
+<button onclick="() => HandleDeletion(myModel.DeleteValue)">Delete</button>
+-->
 @code {
     private ManageUsers manageUsers; 
     private MyDataModel myModel = new MyDataModel();
@@ -24,11 +30,15 @@
     public class MyDataModel
     {
 
-        public string SelectedValue { get; set; }
+        public string CreateValue { get; set; }
+        public string DeleteValue { get; set; }
+        public string DeleteInput { get; set; }
 
         public MyDataModel()
         {
-            SelectedValue = "";
+            CreateValue = "";
+            DeleteValue = "";
+            DeleteInput = "";
         }
     }
 
@@ -38,11 +48,21 @@
         manageUsers = new ManageUsers(Nav);
     }
 
-    public void HandleButtonClick()
+    public void HandleCreation()
     {
-        manageUsers.AddUser(myModel.SelectedValue);
+        if(myModel.CreateValue != "")
+            manageUsers.AddUser(myModel.CreateValue);
     }
 
-    
-    
+    public void HandleDeletion(string type)
+    {
+        if(myModel.CreateValue != "")
+            switch (type)
+            {
+                case "email":
+                    //manageUsers.SearchByEmail(myModel.DeleteInput);
+                    break;
+            }
+    }
+
 }

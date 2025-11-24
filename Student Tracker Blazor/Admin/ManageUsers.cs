@@ -24,9 +24,7 @@ namespace Student_Tracker_Blazor
         public void AddUser(string role)
         {
             switch (role)
-            {
-                //void MethodToTriggerURL()
-                    //NavigationManager.NavigateTo("PageToRedirect");
+            { 
                 case "admin":
                     navMan.NavigateTo("/adminaddadmin");
                     break;
@@ -39,7 +37,7 @@ namespace Student_Tracker_Blazor
             }
         }
 
-        public void AddAdmin(string emailAddr, string password, string firstName, string lastName)
+        public async void AddAdmin(string emailAddr, string password, string firstName, string lastName)
         {
             UserJson user = new UserJson();
 
@@ -54,10 +52,10 @@ namespace Student_Tracker_Blazor
             AdminJson andmin = new AdminJson();
 
            
-            APIServices.CreateAdminAsync(user, andmin);
+            await APIServices.CreateAdminAsync(user, andmin);
         }
 
-        public void AddProfessor(string emailAddr, string password, string firstName, string lastName)
+        public async void AddProfessor(string emailAddr, string password, string firstName, string lastName)
         {
             UserJson user = new UserJson();
 
@@ -72,10 +70,10 @@ namespace Student_Tracker_Blazor
             TeacherJson professor = new TeacherJson();
  
 
-            APIServices.CreateTeacherAsync(user, professor);
+            await APIServices.CreateTeacherAsync(user, professor);
         }
 
-        public void AddStudent(string emailAddr, string password, string firstName, string lastName, string enumber, int professorId)
+        public async void AddStudent(string emailAddr, string password, string firstName, string lastName, string enumber, int professorId)
         {
             UserJson user = new UserJson();
 
@@ -91,7 +89,10 @@ namespace Student_Tracker_Blazor
             student.enumber = enumber;
             student.professorId = professorId;
 
-            APIServices.CreateStudentAsync(user, student);
+            await APIServices.CreateStudentAsync(user, student);
         }
+
+
+
     }
 }
