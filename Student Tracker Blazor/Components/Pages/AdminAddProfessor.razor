@@ -1,0 +1,43 @@
+﻿@page "/adminaddprofessor"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+<PageTitle>Admin Add Professor</PageTitle>
+
+<h3>Admin Add Professor</h3>
+
+<h1>Input Professor Information</h1>
+<EditForm Model="@myModel">
+    <InputText @bind-Value="myModel.EmailAddr" placeholder="EmailAddr"/>
+    <InputText @bind-Value="myModel.Password" placeholder="Password" />
+    <InputText @bind-Value="myModel.FirstName" placeholder="FirstName" />
+    <InputText @bind-Value="myModel.LastName" placeholder="LastName" />
+</EditForm>
+
+<button @onclick="HandleButtonClick">Submit!</button>
+
+
+@code
+{
+    private MyDataModel myModel = new MyDataModel();
+    private ManageUsers manageUsers;
+
+    public class MyDataModel
+    {
+        public string EmailAddr { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        // Pass the injected NavigationManager into your class
+        manageUsers = new ManageUsers(Nav);
+    }
+
+    public void HandleButtonClick()
+    {
+        manageUsers.AddProfessor(myModel.EmailAddr, myModel.Password, myModel.FirstName, myModel.LastName);
+        Nav.NavigateTo("/adminmanageusers");
+    }
+}
