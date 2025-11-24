@@ -42,3 +42,10 @@ This is a description of how to install and build the dependencies for this appl
     5) Repeat till functional
     4) Go back into your sub branch- EX. Main_Menu
     5) 
+
+## Repeat after me:
+        I am a strong confident woman
+        I am a man
+        Shit
+        I am a stong confident man
+        I am just a girl
