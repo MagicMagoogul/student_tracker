@@ -250,9 +250,9 @@ namespace Student_Tracker_Blazor
             return response;
         }
 
-        public static async Task<HoursLoggedJson> GetHoursLoggedByStudentAsync(int studentId)
+        public static async Task<List<HoursLoggedJson>> GetHoursLoggedByStudentAsync(int studentId)
         {
-            var response = await _httpClient.GetFromJsonAsync<HoursLoggedJson>($"hourslogged/students/{studentId}");
+            var response = await _httpClient.GetFromJsonAsync<List<HoursLoggedJson>>($"hourslogged/students/{studentId}");
             return response;
         }
 
