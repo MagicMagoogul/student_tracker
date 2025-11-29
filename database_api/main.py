@@ -107,7 +107,7 @@ async def delete_student(studentId: str):
 @app.get("/professors/")
 async def read_professors():
     professors = get_professors()
-    if not professor:
+    if not professors:
         return
     professor_list = list()
     for professor in professors:
@@ -223,7 +223,10 @@ async def read_hours_logged_by_students(studentId: str = ""):
     hours_logged = get_hours_logged_for_student(int(studentId))
     if not hours_logged:
         return
-    return hours_logged.json()
+    hours_logged_list = list()
+    for hours in hours_logged:
+        hours_logged_list.append(hours.json())
+    return hours_logged_list
 
 
 @app.put("/hourslogged/{hoursLoggedId}", response_model=dict)
