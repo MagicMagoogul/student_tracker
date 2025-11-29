@@ -13,32 +13,49 @@
     <option value="student">Student</option>
 </select>
 <button @onclick="HandleCreation">Create</button>
-<!--
-<p>This is the selection for deleting a user!</p>
-<p>We need information to search the database for. Specify the type of information and </p>
-<select @bind="myModel.DeleteValue">
+
+<p>This is the selection for deleting a user! We need information to search the database for. What type of user are you looking for?</p>
+<select @bind="myModel.DeleteType">
     <option value="">-- Select an option --</option>
-    <option value="email">Email</option>
+    <option value="admin">Admin</option>
+    <option value="professor">Professor</option>
+    <option value="student">Student</option>
+    <option value="unsure">Unsure</option>
 </select>
+<p>Fill in what information you can in this section to search the database...</p>
+<EditForm Model="@myModel">
+    <InputText @bind-Value="myModel.FirstName" placeholder="First Name" />
+    <InputText @bind-Value="myModel.LastName" placeholder="Last Name" />
+    <InputText @bind-Value="myModel.Enumber" placeholder="Enumber" />
+    <InputText @bind-Value="myModel.Email" placeholder="Email Address" />
+</EditForm>
 <InputText @bind-Value="myModel.DeleteInput" placeholder="Enumber" />
 <button onclick="() => HandleDeletion(myModel.DeleteValue)">Delete</button>
--->
 @code {
     private ManageUsers manageUsers; 
     private MyDataModel myModel = new MyDataModel();
+    private List<UserJson> users;
 
     public class MyDataModel
     {
 
         public string CreateValue { get; set; }
-        public string DeleteValue { get; set; }
+        public string DeleteType { get; set; }
         public string DeleteInput { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Enumber { get; set; }
+        public string Email { get; set; }
 
         public MyDataModel()
         {
             CreateValue = "";
-            DeleteValue = "";
+            DeleteType = "";
             DeleteInput = "";
+            FirstName = "";
+            LastName = "";
+            Enumber = "";
+            Email = "";
         }
     }
 
@@ -59,8 +76,8 @@
         if(myModel.CreateValue != "")
             switch (type)
             {
-                case "email":
-                    //manageUsers.SearchByEmail(myModel.DeleteInput);
+                case "admin":
+                    //users = manageUsers.FindAdmin(myModel.FirstName, myModel.LastName, myModel.Email);
                     break;
             }
     }

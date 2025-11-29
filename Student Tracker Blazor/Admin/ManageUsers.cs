@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Components;
@@ -92,7 +93,20 @@ namespace Student_Tracker_Blazor
             await APIServices.CreateStudentAsync(user, student);
         }
 
+        public async Task<List<UserJson>> FindAdmin(string firstName, string lastName, string emailAddr)
+        {
+            List<AdminJson> admins = await APIServices.GetAdminAsync();
+            List<UserJson> users = null;
 
-
+            foreach (AdminJson admin in admins)
+            {
+                UserJson user = await APIServices.GetUserAsync(admin.userId);
+                if ((user.firstName == firstName || firstName == "") && (user.lastName == lastName || lastName == "") && (user.emailaddr == emailAddr || emailAddr == ""))
+                {
+                    users.Add(user);
+                }
+            }
+            return users;
+        }
     }
 }
