@@ -44,6 +44,7 @@ namespace Student_Tracker_Blazor
 
             user.emailaddr = emailAddr;
             user.password = password;
+            user.HashPassword();
             user.firstName = firstName;
             user.lastName = lastName;
             user.createdAt = DateTime.Now.ToString();
@@ -62,6 +63,7 @@ namespace Student_Tracker_Blazor
 
             user.emailaddr = emailAddr;
             user.password = password;
+            user.HashPassword();
             user.firstName = firstName;
             user.lastName = lastName;
             user.createdAt = DateTime.Now.ToString();
@@ -80,6 +82,7 @@ namespace Student_Tracker_Blazor
 
             user.emailaddr = emailAddr;
             user.password = password;
+            user.HashPassword();
             user.firstName = firstName;
             user.lastName = lastName;
             user.createdAt = DateTime.Now.ToString();
@@ -95,7 +98,7 @@ namespace Student_Tracker_Blazor
 
         public async Task<List<UserJson>> FindAdmin(string firstName, string lastName, string emailAddr)
         {
-            List<AdminJson> admins = await APIServices.GetAdminAsync();
+            List<AdminJson> admins = await APIServices.GetAdminsAsync();
             List<UserJson> users = new List<UserJson>();
 
             foreach (AdminJson admin in admins)
@@ -161,7 +164,7 @@ namespace Student_Tracker_Blazor
         public async Task DeleteAdmin(int id)
         {
             AdminJson admin = new();
-            admin = await APIServices.GetAdminsAsync(id);
+            admin = await APIServices.GetAdminAsync(id);
 
             await APIServices.DeleteAdminAsync(admin.adminId);
             await APIServices.DeleteUserAsync(id);

@@ -35,13 +35,8 @@
 <EditForm Model="@myModel">
     <InputNumber @bind-Value="myModel.DeleteID">User ID</InputNumber>
 </EditForm>
-<select @bind="myModel.RoleType">
-    <option value="">-- Select an option --</option>
-    <option value="admin">Admin</option>
-    <option value="professor">Professor</option>
-    <option value="student">Student</option>
-</select>
-<button @onclick="() => HandleDeletion(myModel.DeleteID, myModel.RoleType)">Delete</button>
+
+<button @onclick="() => HandleDeletion(myModel.DeleteID)">Delete</button>
 
 <table class="table">
     <thead>
@@ -136,9 +131,10 @@
             }
     }
 
-    public async Task HandleDeletion(int id, string type)
+    public async Task HandleDeletion(int id)
     {
-        switch (type)
+        UserJson user = await APIServices.GetUserAsync(id);
+        switch (user.role)
         {
             case "admin":
                 await manageUsers.DeleteAdmin(id);
