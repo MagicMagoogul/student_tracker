@@ -96,17 +96,96 @@ namespace Student_Tracker_Blazor
         public async Task<List<UserJson>> FindAdmin(string firstName, string lastName, string emailAddr)
         {
             List<AdminJson> admins = await APIServices.GetAdminAsync();
-            List<UserJson> users = null;
+            List<UserJson> users = new List<UserJson>();
 
             foreach (AdminJson admin in admins)
             {
                 UserJson user = await APIServices.GetUserAsync(admin.userId);
-                if ((user.firstName == firstName || firstName == "") && (user.lastName == lastName || lastName == "") && (user.emailaddr == emailAddr || emailAddr == ""))
+                if ((user.firstName == firstName || string.IsNullOrEmpty(firstName)) && (user.lastName == lastName || string.IsNullOrEmpty(lastName)) && (user.emailaddr == emailAddr || string.IsNullOrEmpty(emailAddr)))
                 {
                     users.Add(user);
                 }
             }
             return users;
+        }
+
+        public async Task<List<UserJson>> FindStudent(string firstName, string lastName, string emailAddr, string enumber)
+        {
+            List<StudentJson> students = await APIServices.GetStudentsAsync();
+            List<UserJson> users = new List<UserJson>();
+
+            foreach (StudentJson student in students)
+            {
+                UserJson user = await APIServices.GetUserAsync(student.userId);
+                if ((user.firstName == firstName || string.IsNullOrEmpty(firstName)) && (user.lastName == lastName || string.IsNullOrEmpty(lastName)) && (user.emailaddr == emailAddr || string.IsNullOrEmpty(emailAddr)) && (student.enumber == enumber || string.IsNullOrEmpty(enumber)))
+                {
+                    users.Add(user);
+                }
+            }
+            return users;
+        }
+
+        public async Task<List<UserJson>> FindProfessor(string firstName, string lastName, string emailAddr)
+        {
+            List<TeacherJson> teachers = await APIServices.GetTeachersAsync();
+            List<UserJson> users = new List<UserJson>();
+
+            foreach (TeacherJson teacher in teachers)
+            {
+                UserJson user = await APIServices.GetUserAsync(teacher.userId);
+                if ((user.firstName == firstName || string.IsNullOrEmpty(firstName)) && (user.lastName == lastName || string.IsNullOrEmpty(lastName)) && (user.emailaddr == emailAddr || string.IsNullOrEmpty(emailAddr)))
+                {
+                    users.Add(user);
+                }
+            }
+            return users;
+        }
+
+        public async Task<List<UserJson>> FindUnsure(string firstName, string lastName, string emailAddr)
+        {
+            List<UserJson> users = new List<UserJson>();
+            users = await APIServices.GetUsersAsync();
+
+            List<UserJson> usersRet = new List<UserJson>();
+
+            foreach (UserJson user in users)
+            {
+                if ((user.firstName == firstName || string.IsNullOrEmpty(firstName)) && (user.lastName == lastName || string.IsNullOrEmpty(lastName)) && (user.emailaddr == emailAddr || string.IsNullOrEmpty(emailAddr)))
+                {
+                    usersRet.Add(user);
+                }
+            }
+            return usersRet;
+        }
+
+        public async Task DeleteAdmin(int id)
+        {
+            AdminJson admin = new();
+            admin = await APIServices.GetAdminsAsync(id);
+
+            await APIServices.DeleteAdminAsync(admin.adminId);
+            await APIServices.DeleteUserAsync(id);
+
+        }
+
+        public async Task DeleteStudent(int id)
+        {
+            StudentJson student = new();
+            student = await APIServices.GetStudentAsync(id);
+
+            await APIServices.DeleteStudentAsync(student.studentId);
+            await APIServices.DeleteUserAsync(id);
+
+        }
+
+        public async Task DeleteProfessor(int id)
+        {
+            TeacherJson teacher = new();
+            teacher = await APIServices.GetTeacherAsync(id);
+
+            await APIServices.DeleteTeacherAsync(teacher.professorId);
+            await APIServices.DeleteUserAsync(id);
+
         }
     }
 }
