@@ -107,7 +107,7 @@ async def delete_student(studentId: str):
 @app.get("/professors/")
 async def read_professors():
     professors = get_professors()
-    if not professor:
+    if not professors:
         return
     professor_list = list()
     for professor in professors:

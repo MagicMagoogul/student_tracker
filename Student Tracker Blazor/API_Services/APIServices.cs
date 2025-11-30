@@ -219,13 +219,13 @@ namespace Student_Tracker_Blazor
             return false;
         }
 
-        public static async Task<List<AdminJson>> GetAdminAsync()
+        public static async Task<List<AdminJson>> GetAdminsAsync()
         {
             var response = await _httpClient.GetFromJsonAsync<List<AdminJson>>($"admins/");
             return response;
         }
 
-        public static async Task<AdminJson> GetAdminsAsync(int userId)
+        public static async Task<AdminJson> GetAdminAsync(int userId)
         {
             var response = await _httpClient.GetFromJsonAsync<AdminJson>($"admins/{userId}");
             return response;

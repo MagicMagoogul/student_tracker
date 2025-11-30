@@ -1,9 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Student_Tracker_Blazor
 {
     public class UserJson
     {
+        private string _password;
+
         [JsonPropertyName("user_id")]
         public int userId { get; set; }
 
@@ -11,7 +15,15 @@ namespace Student_Tracker_Blazor
         public string emailaddr { get; set; }
 
         [JsonPropertyName("password")]
-        public string password { get; set; }
+        public string password
+        {
+            get => _password;
+            set 
+            {
+                _password = value;
+            }
+        }
+
 
         [JsonPropertyName("first_name")]
         public string firstName { get; set; }
@@ -31,7 +43,7 @@ namespace Student_Tracker_Blazor
             userId = -1;
 
             emailaddr = "";
-            password = "";
+            _password = "";
 
             firstName = "";
             lastName = "";
@@ -45,6 +57,33 @@ namespace Student_Tracker_Blazor
         public override string ToString()
         {
             return $"{userId}\n{emailaddr}\n{firstName}\n{lastName}\n{createdAt}\n{updatedAt}\n{role}";
+        }
+
+        public void HashPassword()
+        {
+            _password = GetHashString(_password);
+        }
+
+        public void UpdatePassword(string newPassword)
+        {
+            //Some manner of login to make sure that the updated password is being updated by a valid user
+            //Possible Admin login as well?
+            HashPassword();
+        }
+
+        private static byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        private static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
     }
 }
