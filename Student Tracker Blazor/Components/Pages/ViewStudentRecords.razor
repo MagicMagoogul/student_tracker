@@ -19,17 +19,14 @@
         @foreach (var record in records)
         {
             <tr>
-                
                 <td>@record.Enumber</td>
                 <td>@record.FirstName</td>
                 <td>@record.LastName</td>
                 <td>@record.HoursWorked</td>
-                
             </tr>
         }
     </tbody>
 </table>
-
 
 @code {
     private List<StudentJson> students = new();
@@ -37,13 +34,10 @@
     //combined list
     private List<StudentRecords> records = new();
 
-
     protected override async Task OnInitializedAsync()
     {
         students = await APIServices.GetStudentsAsync();
         var allHours = await APIServices.GetHoursLoggedAsync();
-            
-
 
         foreach (var student in students)
         {
