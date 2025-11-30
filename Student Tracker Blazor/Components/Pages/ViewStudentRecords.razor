@@ -16,15 +16,15 @@
         <th>Hours Worked</th>
     </tr>
     <tbody>
-        @foreach (var student in students)
+        @foreach (var record in records)
         {
             <tr>
-                <!--
-                <td>@student.ENumber</td>
-                <td>@student.FirstName</td>
-                <td>@student.LastName</td>
-                <td>@student.hours</td>
-                -->
+                
+                <td>@record.Enumber</td>
+                <td>@record.FirstName</td>
+                <td>@record.LastName</td>
+                <td>@record.HoursWorked</td>
+                
             </tr>
         }
     </tbody>
@@ -32,27 +32,47 @@
 
 
 @code {
-    private List<StudentJson> students;
-    private List<UserJson> users;
-    private List<List<HoursLoggedJson>> hours;
+    private List<StudentJson> students = new();
+    private List<UserJson> users = new();
+    //combined list
+    private List<StudentRecords> records = new();
 
 
     protected override async Task OnInitializedAsync()
     {
         students = await APIServices.GetStudentsAsync();
-        users = await APIServices.GetUsersAsync();
-
-        for (int i = 0; i < students.Count; i++)
-        {
-            StudentJson student = students[i];
-            //hours[i] = await APIServices.GetHoursLoggedByStudentAsync(student.studentId);
+        var allHours = await APIServices.GetHoursLoggedAsync();
             
+
+
+        foreach (var student in students)
+        {
+
+            var user = await APIServices.GetUserAsync(student.userId);
+            
+            var studentHours = allHours.Where(h => h.studentId == student.studentId);
+
+            int total = studentHours.Select(h => int.TryParse(h.hours, out var parsed) ? parsed : 0).Sum();
+
+            records.Add(new StudentRecords 
+                {
+                    Enumber = student.enumber,
+                    FirstName = user.firstName,
+                    LastName = user.lastName,
+                    HoursWorked = total
+                });
+
+            }
+        }    
+        
+
+        private class StudentRecords
+        {
+            public string Enumber { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public int HoursWorked { get; set; }
         }
-
-
-
     }
-
-
 
 }
