@@ -1,14 +1,20 @@
 # Developer Manual
 # Glossary (of important terms)
-
+    -Important Terms-
+    -
+    -
+    -
 ---    
 # Development environment & setup
+The development environment and setup for this project is the 
 
 ---
 # Coding standards
+The coding standard for this project 
 
 ---
 # Development standards
+
 
 ---
 # Data dictionary
@@ -89,8 +95,49 @@ All ID fields are auto-incremented.
 # Troubleshooting guide (Any specific helpful information regarding known issues)
 
 ---
-## APIServices
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is what was here before
+
+---
+---
+---
 ---
 ### JSON Classes
 
