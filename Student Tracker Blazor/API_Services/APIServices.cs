@@ -42,6 +42,12 @@ namespace Student_Tracker_Blazor
             return response;
         }
 
+        public static async Task<bool> CheckUserPassword(int userId, string password_hash)
+        {
+            var response = await _httpClient.GetFromJsonAsync<bool>($"users/password/{userId}?password={password_hash}");
+            return response;
+        }
+
         public static async Task<string> UpdateUserAsync(int userId, UserJson user)
         {
             var response = await _httpClient.PutAsJsonAsync($"users/{userId}", user);
