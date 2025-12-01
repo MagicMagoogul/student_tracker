@@ -1,5 +1,11 @@
+
+
 # Student Tracker Application
-### Authors: Aurora Liles, Joshua Belfield, Sam Collins, Melanie Magno, and Riley Owen
+## Authors: Aurora Liles, Joshua Belfield, Sam Collins, Melanie Magno, and Riley Owen
+### Table of Contents
+- [Project Overview](#project-overview)
+- [Vision](#vision)
+- [Directory Breakdown](#directory-breakdown)
 ---
 # Project Overview
 
