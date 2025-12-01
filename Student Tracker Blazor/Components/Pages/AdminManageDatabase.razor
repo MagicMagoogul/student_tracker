@@ -201,6 +201,7 @@
     public async Task HandleModification(int id)
     {
         APIServices.UpdateUserAsync(id, user);
+
         if (user.role == "student")
             APIServices.UpdateStudentAsync(student.studentId, student);
         if (user.role == "admin")
