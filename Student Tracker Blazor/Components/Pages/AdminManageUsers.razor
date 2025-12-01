@@ -14,6 +14,8 @@
 </select>
 <button @onclick="HandleCreation">Create</button>
 
+<hr />
+
 <p>This is the selection for deleting a user! We need information to search the database for. What type of user are you looking for?</p>
 <select @bind="myModel.DeleteType">
     <option value="">-- Select an option --</option>
@@ -22,6 +24,7 @@
     <option value="student">Student</option>
     <option value="unsure">Unsure</option>
 </select>
+
 <p>Fill in what information you can in this section to search the database...</p>
 <EditForm Model="@myModel">
     <InputText @bind-Value="myModel.FirstName" placeholder="First Name" />
@@ -31,12 +34,7 @@
 </EditForm>
 <button @onclick="() => HandleFind(myModel.DeleteType)">Find</button>
 
-<p>Input a user ID, choose a type of user, and press delete to delete the user!</p>
-<EditForm Model="@myModel">
-    <InputNumber @bind-Value="myModel.DeleteID">User ID</InputNumber>
-</EditForm>
-
-<button @onclick="() => HandleDeletion(myModel.DeleteID)">Delete</button>
+<hr />
 
 <table class="table">
     <thead>
@@ -65,6 +63,17 @@
         }
     </tbody>
 </table>
+
+<hr />
+
+<p>Input a user ID, choose a type of user, and press delete to delete the user!</p>
+<EditForm Model="@myModel">
+    <InputNumber @bind-Value="myModel.DeleteID">User ID</InputNumber>
+</EditForm>
+
+<button @onclick="() => HandleDeletion(myModel.DeleteID)">Delete</button>
+
+
 
 @code {
     private ManageUsers manageUsers; 
