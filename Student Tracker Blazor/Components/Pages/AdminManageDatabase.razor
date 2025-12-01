@@ -1,8 +1,212 @@
 ﻿@page "/adminmanagedatabase"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
 <PageTitle>AdminManageDatabase</PageTitle>
 
-<h3>AdminManageDatabase</h3>
+<h3>Admin Manage Database</h3>
+<p>This is a manage database page! This should allow you to modify the information that is saved in the database!</p>
+<p>This is a search function for the database, for you to be able to see what is currently in the database. Feel free to put information in this to search for things in particular.</p>
+<select @bind="myModel.DeleteType">
+    <option value="">-- Select an option --</option>
+    <option value="admin">Admin</option>
+    <option value="professor">Professor</option>
+    <option value="student">Student</option>
+    <option value="unsure">Unsure</option>
+</select>
+
+<p>Fill in what information you can in this section to search the database...</p>
+<EditForm Model="@myModel">
+    <InputText @bind-Value="myModel.FirstName" placeholder="First Name" />
+    <InputText @bind-Value="myModel.LastName" placeholder="Last Name" />
+    <InputText @bind-Value="myModel.Enumber" placeholder="Enumber" />
+    <InputText @bind-Value="myModel.Email" placeholder="Email Address" />
+</EditForm>
+<button @onclick="() => HandleFind(myModel.DeleteType)">Find</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>User ID</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            <tr>
+                <td>@user.firstName</td>
+                <td>@user.lastName</td>
+                <td>@user.emailaddr</td>
+                <td>@user.role</td>
+                <td>@user.userId</td>
+                <td>@user.createdAt</td>
+                <td>@user.updatedAt</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Input a user ID, choose a type of user, and press load to load the user!</p>
+<EditForm Model="@myModel">
+    <InputNumber @bind-Value="myModel.ModifyID">User ID</InputNumber>
+</EditForm>
+
+<button @onclick="() => HandleLoading(myModel.ModifyID)">Load</button>
+
+<table class="table">
+<thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>User ID</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+    </tr>
+</thead>
+<tbody>
+@if (isDisplayed == true)
+{
+    <tr>
+        <td>@user.firstName</td>
+        <td>@user.lastName</td>
+        <td>@user.emailaddr</td>
+        <td>@user.role</td>
+        <td>@user.userId</td>
+        <td>@user.createdAt</td>
+        <td>@user.updatedAt</td>
+    </tr>
+}
+</tbody>
+</table>
+
+@if(user.role == "admin")
+{
+    <h1>Input Admin Information</h1>
+    <EditForm Model="@myModel">
+        <InputText @bind-Value="user.emailaddr" placeholder="EmailAddr" />
+        <InputText @bind-Value="user.password" placeholder="Password" />
+        <InputText @bind-Value="user.firstName" placeholder="First Name" />
+        <InputText @bind-Value="user.lastName" placeholder="Last Name" />
+    </EditForm>
+}
+@if(user.role == "professor")
+{
+    <h1>Input Professor Information</h1>
+    <EditForm Model="@myModel">
+        <InputText @bind-Value="user.emailaddr" placeholder="EmailAddr" />
+        <InputText @bind-Value="user.password" placeholder="Password" />
+        <InputText @bind-Value="user.firstName" placeholder="First Name" />
+        <InputText @bind-Value="user.lastName" placeholder="Last Name" />
+    </EditForm>
+} 
+@if(user.role == "student")
+{
+    <h1>Input student Information</h1>
+    <EditForm Model="@myModel">
+        <InputText @bind-Value="user.emailaddr" placeholder="EmailAddr" />
+        <InputText @bind-Value="user.password" placeholder="Password" />
+        <InputText @bind-Value="user.firstName" placeholder="First Name" />
+        <InputText @bind-Value="user.lastName" placeholder="Last Name" />
+        <InputText @bind-Value="student.enumber" placeholder="Enumber" />
+    </EditForm>
+}
+<button @onclick="() => HandleModification(myModel.ModifyID)">Modify</button>
+
 
 @code {
+    private ManageUsers manageUsers;
+    private MyDataModel myModel = new MyDataModel();
+    private List<UserJson> users = new();
+    private UserJson user = new();
+    private StudentJson student = new();
+    private AdminJson admin = new();
+    private TeacherJson teacher = new();
+    private bool isDisplayed = false;
 
+    public class MyDataModel
+    {
+
+        public string CreateValue { get; set; }
+        public string DeleteType { get; set; }
+        public string DeleteInput { get; set; }
+        public int ModifyID { get; set; }
+        public string RoleType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Enumber { get; set; }
+        public string Email { get; set; }
+
+
+        public MyDataModel()
+        {
+            CreateValue = "";
+            DeleteType = "";
+            DeleteInput = "";
+            ModifyID = -1;
+            RoleType = "";
+            FirstName = "";
+            LastName = "";
+            Enumber = "";
+            Email = "";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        // Pass the injected NavigationManager into your class
+        manageUsers = new ManageUsers(Nav);
+    }
+
+    public async Task HandleFind(string type)
+    {
+        if (type != "")
+            switch (type)
+            {
+                case "admin":
+                    users = await manageUsers.FindAdmin(myModel.FirstName, myModel.LastName, myModel.Email);
+                    break;
+                case "student":
+                    users = await manageUsers.FindStudent(myModel.FirstName, myModel.LastName, myModel.Email, myModel.Enumber);
+                    break;
+                case "professor":
+                    users = await manageUsers.FindProfessor(myModel.FirstName, myModel.LastName, myModel.Email);
+                    break;
+                case "unsure":
+                    users = await manageUsers.FindUnsure(myModel.FirstName, myModel.LastName, myModel.Email);
+                    break;
+            }
+    }
+
+    public async Task HandleLoading(int id)
+    {
+        user = await APIServices.GetUserAsync(id);
+        if (user.role == "student")
+            student = await APIServices.GetStudentAsync(id);
+        if (user.role == "admin")
+            admin = await APIServices.GetAdminAsync(id);
+        if (user.role == "professor")
+            teacher = await APIServices.GetTeacherAsync(id);
+
+
+        isDisplayed = true;
+    }
+
+    public async Task HandleModification(int id)
+    {
+        APIServices.UpdateUserAsync(id, user);
+        if (user.role == "student")
+            APIServices.UpdateStudentAsync(student.studentId, student);
+        if (user.role == "admin")
+            APIServices.UpdateAdminAsync(admin.adminId, admin);
+        if (user.role == "professor")
+            APIServices.UpdateTeacherAsync(teacher.professorId, teacher);
+
+    }
 }
