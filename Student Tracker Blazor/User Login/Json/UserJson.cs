@@ -64,13 +64,6 @@ namespace Student_Tracker_Blazor
             _password = GetHashString(_password);
         }
 
-        public void UpdatePassword(string newPassword)
-        {
-            //Some manner of login to make sure that the updated password is being updated by a valid user
-            //Possible Admin login as well?
-            HashPassword();
-        }
-
         private static byte[] GetHash(string inputString)
         {
             using (HashAlgorithm algorithm = SHA256.Create())
