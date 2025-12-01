@@ -16,6 +16,7 @@ namespace Student_Tracker_Blazor
             builder.Services.AddRazorComponents()
                             .AddInteractiveServerComponents(); // Required for Blazor Server
             builder.Services.AddAntiforgery();
+            builder.Services.AddScoped<Login>();
             
             var app = builder.Build();
 

@@ -1,6 +1,7 @@
 ﻿@page "/loginpage"
 @rendermode InteractiveServer
 @using Student_Tracker_Blazor
+@inject Login loginHandler;
 
 
 <div class="login-container">
@@ -33,7 +34,7 @@
 
 @code {
     private LoginModel loginModel = new();
-    private Login loginHandler = new();
+    //private Login loginHandler = new();
     private string? message;
 
     private async Task HandleLogin()
@@ -66,6 +67,8 @@
 
             message = null;
             StateHasChanged();
+
+            Console.WriteLine(loginHandler.currentUser);
 
             //reset form
             loginModel = new();
