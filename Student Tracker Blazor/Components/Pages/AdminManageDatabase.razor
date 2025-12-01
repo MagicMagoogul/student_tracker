@@ -108,7 +108,7 @@
 } 
 @if(user.role == "student")
 {
-    <h1>Input student Information</h1>
+    <h1>Input Student Information</h1>
     <EditForm Model="@myModel">
         <InputText @bind-Value="user.emailaddr" placeholder="EmailAddr" />
         <InputText @bind-Value="user.password" placeholder="Password" />
