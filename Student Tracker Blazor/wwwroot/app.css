@@ -80,10 +80,12 @@ p{
     margin: 0 auto;
 }
 
-.horizontal-nav ul{
+.horizontal-nav ul {
     margin: 0 auto;
     padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .horizontal-nav a.active {
