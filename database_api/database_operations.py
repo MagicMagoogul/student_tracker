@@ -38,6 +38,18 @@ def get_user_by_last_name(last_name: int):
         print(f"get_user_by_last_name failed: {e}")
 
 
+def user_check_password(userId: int, password: str):
+    try:
+        global session
+        user = session.query(User).where(User.UserId == userId).where(User.Password == password).first()
+        if user:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"user_check_password failed: {e}")
+
+
 def user_update(user_id: int, updated_user: dict):
     try:
         global session

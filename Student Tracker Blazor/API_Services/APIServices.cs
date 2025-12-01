@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -42,6 +43,12 @@ namespace Student_Tracker_Blazor
             return response;
         }
 
+        public static async Task<bool> CheckUserPassword(int userId, string password_hash)
+        {
+            var response = await _httpClient.GetFromJsonAsync<bool>($"users/password/{userId}?password={password_hash}");
+            return response;
+        }
+
         public static async Task<string> UpdateUserAsync(int userId, UserJson user)
         {
             var response = await _httpClient.PutAsJsonAsync($"users/{userId}", user);
@@ -54,6 +61,29 @@ namespace Student_Tracker_Blazor
             var response = await _httpClient.DeleteAsync($"users/{userId}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// User auth function that checks if email+password matches any user in Users table.
+        /// </summary>
+        /// <returns>The FIRST matching user, or null if none match.</returns>
+        public static async Task<UserJson?> LoginUserAsync(string email, string password)
+        {
+            string hashed = User.GetHashString(password);
+
+            var users = await GetUsersAsync();
+
+            foreach (UserJson u in users)
+            {
+                bool passIsCorrect = await CheckUserPassword(u.userId, hashed);
+
+                if (u.emailaddr == email && passIsCorrect)
+                {
+                    return u;
+                }
+            }
+
+            return null;
         }
 
         // Students
