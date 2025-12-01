@@ -1,23 +1,97 @@
 # Developer Manual
+# Glossary (of important terms)
 
+---    
+# Development environment & setup
 
-    Glossary (of important terms)
-    Development environment & setup
-    Coding standards
-    Development standards
-    Data dictionary
-    Link to the Architectural design document 
-    Link to the Detailed design document (Class model; Data Flow Diagrams; ...)
-    Test process, link to Test plans, link to test scripts, test execution tools, etc. 
-    Issue tracking tool
-    Project management tool
-    Build and Deployment (Procedure)
-    Rationale behind specific design decisions
-    Troubleshooting guide (Any specific helpful information regarding known issues)
+---
+# Coding standards
 
+---
+# Development standards
 
+---
+# Data dictionary
+
+### Users Table
+
+| Column Name | Type | NotNull | Primary Key | Foreign Key |
+| ----  | ---- | ---- | ---- | ---- |
+| UserId | INTEGER | True | True | False |
+| EmailAddr | TEXT | False | False | False |
+| FirstName | TEXT | True | False | False |
+| LastName | TEXT | True | False | False |
+| Password | TEXT | True | False | False |
+| CreatedAt | TEXT | True | False | False |
+| UpdatedAt | TEXT | True | False | False |
+| Role | TEXT | True | False | False |
+
+### Professors Table
+
+| Column Name | Type | NotNull | Primary Key | Foreign Key |
+| ----  | ---- | ---- | ---- | ---- |
+| ProfessorId | INTEGER | True | True | False |
+| UserId | INTEGER | True | False | True |
+
+### Admins Table
+
+| Column Name | Type | NotNull | Primary Key | Foreign Key |
+| ----  | ---- | ---- | ---- | ---- |
+| AdminId | INTEGER | True | True | False |
+| UserId | INTEGER | True | False | True |
+
+### Students Table
+
+| Column Name | Type | NotNull | Primary Key | Foreign Key |
+| ----  | ---- | ---- | ---- | ---- |
+| StudentId | INTEGER | True | True | False |
+| ENumber | TEXT | True | False | False |
+| UserId | INTEGER | True | False | True |
+| ProfessorId | INTEGER | True | False | True |
+
+### Hours Logged Table
+
+| Column Name | Type | NotNull | Primary Key | Foreign Key |
+| ----  | ---- | ---- | ---- | ---- |
+| HoursLoggedId | INTEGER | True | True | False |
+| StudentId | INTEGER | False | False | True |
+| Hours | TEXT | True | False | False |
+| Location | TEXT | True | False | False |
+| ShiftDate | TEXT | True | False | False |
+| LoggingDate | TEXT | True | False | False |
+
+## Additional Notes
+
+All ID fields are auto-incremented.
+
+---
+# Link to the Architectural design document 
+
+---
+# Link to the Detailed design document (Class model; Data Flow Diagrams; ...)
+
+---
+# Test process, link to Test plans, link to test scripts, test execution tools, etc. 
+
+---
+# Issue tracking tool
+
+---
+# Project management tool
+
+---
+# Build and Deployment (Procedure)
+
+---
+# Rationale behind specific design decisions
+
+---
+# Troubleshooting guide (Any specific helpful information regarding known issues)
+
+---
 ## APIServices
 
+---
 ### JSON Classes
 
 There are various classes meant to reflect the exact json returned by the database API. You can think of these as dictionaries, e.g., UserJson.emailaddr = "name@site.com" would the same as User\["emailaddr"\] = "name@site.com" if we were using actual dictionaries.
