@@ -2,6 +2,8 @@
 @rendermode InteractiveServer
 @using Student_Tracker_Blazor
 
+@inject Login loginHandler
+
 <PageTitle>Log Hours</PageTitle>
 
 <h1>Log Hours</h1>
@@ -30,12 +32,11 @@
 
         @if (!string.IsNullOrEmpty(successMessage))
         {
-            <div class="alert" alert-success mt-3>
+            <div class="alert alert-success mt-3">
                 @successMessage
-            </div>    
+            </div>
         }
     </EditForm>
-
 </div>
 
 @code
@@ -44,6 +45,16 @@
     private HoursLoggedJson hoursLoggedJson = new();
     private string? successMessage;
 
+    protected override void OnInitialized()
+    {
+        logHoursModel = new LogHoursModel
+        {
+            login = loginHandler,
+            studentId = loginHandler.currentUser?.userId ?? 0,
+            loggingDate = DateTime.Today.ToString()
+        };
+    }
+
     private async Task PushLogHours()
     {
         hoursLoggedJson.studentId = logHoursModel.studentId;
@@ -51,11 +62,9 @@
         hoursLoggedJson.location = logHoursModel.location;
         hoursLoggedJson.shiftDate = logHoursModel.shiftDate;
         hoursLoggedJson.loggingDate = logHoursModel.loggingDate;
-        
-        //push form info to HoursLogged db table
+
         await APIServices.CreateHoursLoggedAsync(hoursLoggedJson);   
-        
-        //show message for 5 seconds and then hide again
+
         successMessage = "Hours successfully logged!";
         StateHasChanged();
 
@@ -64,16 +73,23 @@
         successMessage = null;
         StateHasChanged();
 
-        //reset form
-        logHoursModel = new();
+        logHoursModel = new LogHoursModel
+        {
+            login = loginHandler,
+            studentId = loginHandler.currentUser?.userId ?? 0,
+            loggingDate = DateTime.Today.ToString()
+        };
     }
 
     public class LogHoursModel
     {
-        public int studentId = 1;   //placeholder until currentUser variable is implemented
+        public Login login { get; set; }
+        public int studentId { get; set; }
         public string hours { get; set; }
         public string location { get; set; }
         public string shiftDate { get; set; }
-        public string loggingDate = (DateTime.Today).ToString();
+        public string loggingDate { get; set; }
     }
 }
+
+
