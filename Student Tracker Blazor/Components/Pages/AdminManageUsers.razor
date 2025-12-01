@@ -1,10 +1,165 @@
 ﻿@page "/adminmanageusers"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
 <PageTitle>AdminManageUsers</PageTitle>
 
 <h3>Admin Manage Users</h3>
 
-<p>This is a page dedicated to allowing the admins to add and remove users/monitor user activity</p>
+<p>This is the selection for creating a user and inserting it into the database. Choose a user type below!</p>
+<select @bind="myModel.CreateValue">
+    <option value="">-- Select an option --</option>
+    <option value="admin">Admin</option>
+    <option value="professor">Professor</option>
+    <option value="student">Student</option>
+</select>
+<button @onclick="HandleCreation">Create</button>
+
+<hr />
+
+<p>This is the selection for deleting a user! We need information to search the database for. What type of user are you looking for?</p>
+<select @bind="myModel.DeleteType">
+    <option value="">-- Select an option --</option>
+    <option value="admin">Admin</option>
+    <option value="professor">Professor</option>
+    <option value="student">Student</option>
+    <option value="unsure">Unsure</option>
+</select>
+
+<p>Fill in what information you can in this section to search the database...</p>
+<EditForm Model="@myModel">
+    <InputText @bind-Value="myModel.FirstName" placeholder="First Name" />
+    <InputText @bind-Value="myModel.LastName" placeholder="Last Name" />
+    <InputText @bind-Value="myModel.Enumber" placeholder="Enumber" />
+    <InputText @bind-Value="myModel.Email" placeholder="Email Address" />
+</EditForm>
+<button @onclick="() => HandleFind(myModel.DeleteType)">Find</button>
+
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>User ID</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            <tr>
+                <td>@user.firstName</td>
+                <td>@user.lastName</td>
+                <td>@user.emailaddr</td>
+                <td>@user.role</td>
+                <td>@user.userId</td>
+                <td>@user.createdAt</td>
+                <td>@user.updatedAt</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<p>Input a user ID, choose a type of user, and press delete to delete the user!</p>
+<EditForm Model="@myModel">
+    <InputNumber @bind-Value="myModel.DeleteID">User ID</InputNumber>
+</EditForm>
+
+<button @onclick="() => HandleDeletion(myModel.DeleteID)">Delete</button>
+
+
 
 @code {
+    private ManageUsers manageUsers; 
+    private MyDataModel myModel = new MyDataModel();
+    private List<UserJson> users = new();
+
+    public class MyDataModel
+    {
+
+        public string CreateValue { get; set; }
+        public string DeleteType { get; set; }
+        public string DeleteInput { get; set; }
+        public int DeleteID { get; set; }
+        public string RoleType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Enumber { get; set; }
+        public string Email { get; set; }
+
+
+        public MyDataModel()
+        {
+            CreateValue = "";
+            DeleteType = "";
+            DeleteInput = "";
+            DeleteID = -1;
+            RoleType = "";
+            FirstName = "";
+            LastName = "";
+            Enumber = "";
+            Email = "";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        // Pass the injected NavigationManager into your class
+        manageUsers = new ManageUsers(Nav);
+    }
+
+    public void HandleCreation()
+    {
+        if(myModel.CreateValue != "")
+            manageUsers.AddUser(myModel.CreateValue);
+    }
+
+    public async Task HandleFind(string type)
+    {
+        if(type != "")
+            switch (type)
+            {
+                case "admin":
+                    users = await manageUsers.FindAdmin(myModel.FirstName, myModel.LastName, myModel.Email);
+                    break;
+                case "student":
+                    users = await manageUsers.FindStudent(myModel.FirstName, myModel.LastName, myModel.Email, myModel.Enumber);
+                    break;
+                case "professor":
+                    users = await manageUsers.FindProfessor(myModel.FirstName, myModel.LastName, myModel.Email);
+                    break;
+                case "unsure":
+                    users = await manageUsers.FindUnsure(myModel.FirstName, myModel.LastName, myModel.Email);
+                    break;
+            }
+    }
+
+    public async Task HandleDeletion(int id)
+    {
+        UserJson user = await APIServices.GetUserAsync(id);
+        switch (user.role)
+        {
+            case "admin":
+                await manageUsers.DeleteAdmin(id);
+                await HandleFind(myModel.DeleteType);
+                break;
+            case "student":
+                await manageUsers.DeleteStudent(id);
+                await HandleFind(myModel.DeleteType);
+                break;
+            case "professor":
+                await manageUsers.DeleteProfessor(id);
+                await HandleFind(myModel.DeleteType);
+                break;
+
+        }
+        
+    }
 
 }

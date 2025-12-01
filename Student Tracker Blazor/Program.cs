@@ -1,12 +1,13 @@
 using Student_Tracker_Blazor.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace Student_Tracker_Blazor
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             //Login login = new Login();
             var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,10 @@ namespace Student_Tracker_Blazor
 
             app.MapRazorComponents<App>()
                .AddInteractiveServerRenderMode();
+
+            UserJson user = new UserJson();
+            user.password = "Password";
+            Console.WriteLine(user.password);
 
             app.Run();
         }
