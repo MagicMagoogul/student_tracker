@@ -1,5 +1,21 @@
 # Developer Manual
 
+
+    Glossary (of important terms)
+    Development environment & setup
+    Coding standards
+    Development standards
+    Data dictionary
+    Link to the Architectural design document 
+    Link to the Detailed design document (Class model; Data Flow Diagrams; ...)
+    Test process, link to Test plans, link to test scripts, test execution tools, etc. 
+    Issue tracking tool
+    Project management tool
+    Build and Deployment (Procedure)
+    Rationale behind specific design decisions
+    Troubleshooting guide (Any specific helpful information regarding known issues)
+
+
 ## APIServices
 
 ### JSON Classes
