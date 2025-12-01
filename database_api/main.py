@@ -30,6 +30,11 @@ async def read_user(userId: str = ""):
     return user.json()
 
 
+@app.get("/users/password/{userId}")
+async def check_user_password(userId: str = "", password: str = ""):
+    return user_check_password(int(userId), password)
+
+
 @app.put("/users/{userId}", response_model=dict)
 async def update_user(userId: str, updated_user: dict):
     user = user_update(int(userId), updated_user)
