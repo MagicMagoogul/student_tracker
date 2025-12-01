@@ -72,10 +72,18 @@ namespace Student_Tracker_Blazor
             string hashed = User.GetHashString(password);
 
             var users = await GetUsersAsync();
-            var user = users.FirstOrDefault(u =>
-            u.emailaddr == email && u.password == hashed);
 
-            return user;
+            foreach (UserJson u in users)
+            {
+                bool passIsCorrect = await CheckUserPassword(u.userId, hashed);
+
+                if (u.emailaddr == email && passIsCorrect)
+                {
+                    return u;
+                }
+            }
+
+            return null;
         }
 
         // Students

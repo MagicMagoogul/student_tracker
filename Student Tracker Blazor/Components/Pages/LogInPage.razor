@@ -53,17 +53,6 @@
 
             //reset form
             loginModel = new();
-
-            UserJson user = new UserJson();
-            user.password = "Password";
-            Console.WriteLine(user.password);
-            user.HashPassword();
-            Console.WriteLine(user.password);
-
-            Console.WriteLine(loginModel.email, loginModel.password);
-            user.password = loginModel.password;
-            user.HashPassword();
-            Console.WriteLine(user.password);
         }
         else
         {
@@ -80,8 +69,6 @@
 
             //reset form
             loginModel = new();
-
-            Console.WriteLine($"Current user: {loginHandler.currentUser}");  //debug lines, delete
         }
     }
 
