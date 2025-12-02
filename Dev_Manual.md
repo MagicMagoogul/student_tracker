@@ -93,9 +93,7 @@ First, ensure that python is installed and run RunAPI.bat. It will automatically
 
 ---
 ## Rationale behind specific design decisions
-We opted to have our database operations be cleanly separated from the Blazor server application for the sake of simplicity. The database API is written in python for ease of development, and it handles all transactions via json.<br/>
-Blazor and C# were chosen for the front-end for their fast development workflow and wealth of networking-related functionalities.
-
+ In the design of this application, we decided to go with a frog (“phog”) image as our mascot on the tab design. Our company name is “Phog Unlimited LLC - a protected series LLC undetermined etc” so we felt that image was in line with our mission statement of our company. We had a dark navigation menu to make it stand out more. Also, our background was a light greenish color in order to make it pleasing to the eye. Some other design choices we had were the font types throughout the application. We did try to use Times New Roman only, but some of the web pages were stuck on using the Comic Sans font even though we had tried several times to change which font it would use, but apparently it is a load bearing wall/ we were cursed so we couldn't figure out what was causing the font to keep appearing.
 ---
 ## Troubleshooting guide (Any specific helpful information regarding known issues)
 If the need for troubleshooting occurs, some possible issues you will run into is:
