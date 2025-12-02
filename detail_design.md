@@ -5,6 +5,12 @@ Miro link: https://miro.com/app/board/uXjVJ-ZZc6c=/
 
   ![An image of the Miro Board.](/images/miro_board.jpg)
 
+##User Classes and their attributes
+    -Student: UserId, ProfessorId, FirstName, LastName, ENumnber
+    -Admin: AdminId, UserId, FirstName, LastName
+    -HoursLogged: StudentId, Hours, Location, ShiftDate, LoggingDate
+    -Professor: ProfessorId, UserId, FirstName, LastName
+    -User: UserId, EmailAddr, PasswordHash, Role, CreatedAt, UpdatedAt
 
 
 
