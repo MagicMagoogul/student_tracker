@@ -6,11 +6,11 @@
     -
 ---    
 ## Development environment & setup
-The development environment and setup for this project is the 
+The development environment and setup for this project requires Microsoft Visual Studio 2022 with the Blazor development package installed, as well as a standard installation of python. Missing python dependencies are installed automatically.
 
 ---
 ## Coding standards
-The coding standard for this project 
+The coding standard for this project are quite typical, we follow the regular capitalization standards that are recommended for C# development, as well as the typical standards for python, in the case of our database API written in python. We also stick to the same way of organizing C# classes, especially in the case of getters and setters.
 
 ---
 ## Development standards
