@@ -72,10 +72,10 @@ All ID fields are auto-incremented.
 
 ---
 ## Link to the Architectural design document 
-
+- see the architecture doc: located in a sub-folder
 ---
 ## Link to the Detailed design document (Class model; Data Flow Diagrams; ...)
-
+- see the detailed design doc: located in a sub-folder
 ---
 ## Test process, link to Test plans, link to test scripts, test execution tools, etc. 
 Unit Tests–
