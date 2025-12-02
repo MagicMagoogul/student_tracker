@@ -19,8 +19,17 @@ Our Minimum viable product for this project is that we will have a fully functio
     
     /Student Tracker Blazor
         L Contains the Blazor frontend project files.
+        Contains:
+            /API_Services
+            /Admin
+            /Components
+            /Data
+            /Properties
+            /User Login
+            /wwwroot
     /StudentTracker
         L Main Blazor application folder used by Visual Studio, including pages, components, and shared resources.
+        Contains: Temporary files for testing.
     /database_api
       L The full api system to connect the frontend to the backend.
         Contains:
