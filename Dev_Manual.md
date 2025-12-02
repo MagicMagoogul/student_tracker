@@ -1,9 +1,16 @@
 # Developer Manual
 ## Glossary (of important terms)
-    -Important Terms-
-    -
-    -
-    -
+    - API (Application Programming Interface) – The system that allows the Blazor frontend to communicate with the Python backend.
+    - Database Model – A Python or C# class that represents a table in the database.
+    - Endpoint – A specific URL route in the API that performs an action like creating a user or retrieving data.
+    - Blazor Component – A reusable UI block written in .razor files for the web application.
+    - ORM (Object-Relational Mapping) – A system like SQLAlchemy that converts database tables into Python classes.
+    - CRUD – Create, Read, Update, Delete operations used throughout the admin pages.
+    - Routing – The system that determines which page or component the user sees based on the URL.
+    - Authentication – The process of verifying a user’s identity before granting access.
+    - Role-Based Access Control (RBAC) – The system that restricts pages based on whether the user is an admin, professor, or student.
+    - Hashing – A way of securely storing passwords so they cannot be read directly.
+
 ---    
 ## Development environment & setup
 The development environment and setup for this project requires Microsoft Visual Studio 2022 with the Blazor development package installed, as well as a standard installation of python. Missing python dependencies are installed automatically.
@@ -14,7 +21,7 @@ The coding standard for this project are quite typical, we follow the regular ca
 
 ---
 ## Development standards
-
+Our development standards require that all work be done through proper version control practices, including branch-based development and clear commit messages. Every feature must be documented and tested before being merged, and all major changes must go through peer review to ensure consistency and quality. We also maintain strict organization of files, follow consistent coding styles in both C# and Python, and use our Discord server for communication and issue tracking.
 
 ---
 ## Data dictionary
@@ -108,6 +115,7 @@ First, ensure that python is installed and run RunAPI.bat. It will automatically
 ---
 ## Rationale behind specific design decisions
  In the design of this application, we decided to go with a frog (“phog”) image as our mascot on the tab design. Our company name is “Phog Unlimited LLC - a protected series LLC undetermined etc” so we felt that image was in line with our mission statement of our company. We had a dark navigation menu to make it stand out more. Also, our background was a light greenish color in order to make it pleasing to the eye. Some other design choices we had were the font types throughout the application. We did try to use Times New Roman only, but some of the web pages were stuck on using the Comic Sans font even though we had tried several times to change which font it would use, but apparently it is a load bearing wall/ we were cursed so we couldn't figure out what was causing the font to keep appearing.
+
 ---
 ## Troubleshooting guide (Any specific helpful information regarding known issues)
 If the need for troubleshooting occurs, some possible issues you will run into is:
