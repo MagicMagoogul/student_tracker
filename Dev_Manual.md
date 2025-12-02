@@ -78,6 +78,20 @@ All ID fields are auto-incremented.
 
 ---
 ## Test process, link to Test plans, link to test scripts, test execution tools, etc. 
+Unit Tests–
+- Test 1: Used console commands to test user class object functionality.
+- Test 2: Tested API code for proper conversion from user classes to JSON format.
+- Test 3: Tested Blazor site routing for Admin management pages.
+- Test 4: Tested database table structure by creating dummy data.
+
+Integration Tests–
+- Test 1: Tested for correct interactions between Log Hours page and Hours Logged database table, as facilitated by API.
+- Test 2: Ensured Admin Manage Users page properly creates and pushes new users to the database through API. 
+- Test 3: Determined that the View Student Records page is pulling correct information from the database tables.
+- Test 4: Tested user logging in and matching hashed password to database password hash.
+
+System Tests–
+- Walked through software to ensure that users can log in, admin users can create, update and delete users, instructors can view records of and message their students, and students can log their working hours.
 
 ---
 ## Issue tracking tool
